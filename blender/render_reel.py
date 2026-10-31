@@ -149,8 +149,29 @@ def frame_cam(f):
     return {"pos": list(pos), "look": list(look), "lens": f.get("lens", 35)}
 
 
+def key_light(c, strength=1.0):
+    """Soft key from above the camera onto the framed subject, so close-ups never fall into a dark corner.
+    Energy grows with distance so the face gets about the same light at any shot size."""
+    pos, look = Vector(c["pos"]), Vector(c["look"])
+    d = (look - pos).length
+    side = Vector((-(look - pos).y, (look - pos).x, 0)).normalized()   # a little to the camera's left
+    lp = pos + Vector((0, 0, 2.5)) + side * 1.8
+    li = bpy.data.lights.new("key", "AREA")
+    li.size = 3.0
+    li.energy = min(2500, 8 * (lp - look).length ** 2) * strength
+    li.color = (1.0, 0.94, 0.86)
+    ob = bpy.data.objects.new("key", li)
+    bpy.context.scene.collection.objects.link(ob)
+    ob.location = lp
+    tgt = blocky.empty("key.target", loc=tuple(look))
+    con = ob.constraints.new("TRACK_TO")
+    con.target, con.track_axis, con.up_axis = tgt, "TRACK_NEGATIVE_Z", "UP_Y"
+
+
 def camera(shot, n):
     c = frame_cam(shot["frame"]) if "frame" in shot else shot["cam"]
+    if "frame" in shot and shot.get("key", spec.get("key_light", True)) is not False:
+        key_light(c if isinstance(c, dict) else spec["cams"][c], float(shot.get("key", 1.0) or 1.0))
     c = dict(spec["cams"][c]) if isinstance(c, str) else dict(c)
     cam = blocky.add_camera(tuple(c["pos"]), tuple(c["look"]), lens=c.get("lens", 35))
     target = bpy.data.objects["cam.target"]
@@ -219,7 +240,7 @@ def actor(a, n, idx):
     anim.face_timeline(cid, n, timeline)
     anim.blink(cid, n, seed=idx + len(cid), every=a.get("blink_every"), at=a.get("blink_at"))
     if "sit" in a:
-        anim.sit(cid, n, a["sit"])
+        (anim.sit_cross if a.get("cross") else anim.sit)(cid, n, a["sit"])
     if a.get("holding"):
         add_prop(a["holding"], cid, a)
     for item in a.get("do", [["idle"]]):

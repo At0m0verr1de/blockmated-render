@@ -251,12 +251,98 @@ def phone(cid, n):
         key_rot(obj(cid, "neck"), f, -6 if i % 2 else 4, 0, 10 if i % 2 else -6)
 
 
+# ---- held poses (added after the craftee study: their characters are never just standing straight)
+
+def _hold(cid, n, parts, ease=6):
+    """Ease from rest into a pose and hold it, with a tiny breathing sway so it never looks frozen.
+    parts: {"arm.L": (x, y, z), ...} in degrees."""
+    for part, (x, y, z) in parts.items():
+        ob = obj(cid, part)
+        key_rot(ob, 1, 0, 0, 0)
+        key_rot(ob, ease, x, y, z)
+        key_rot(ob, max(ease + 1, n // 2), x + 2, y, z)
+        key_rot(ob, n, x, y, z)
+
+
+def hands_hips(cid, n):
+    """Arms angled out to the hips: confident / annoyed."""
+    _hold(cid, n, {"arm.L": (8, -32, 0), "arm.R": (8, 32, 0), "neck": (0, 6, 0)})
+
+
+def facepalm(cid, n):
+    """One hand up over the face, head dropped."""
+    _hold(cid, n, {"arm.R": (-168, 0, 32), "neck": (24, 0, 0), "body": (6, 0, 0)}, ease=8)
+
+
+def hide_face(cid, n):
+    """Hides her face behind a pillow held up in both hands (one-piece arms can't reach the face, a prop can)."""
+    from blocky import box
+    neck = obj(cid, "neck")
+    pil = box(f"{cid}.pillow", (1.9, 0.5, 1.5), (0, -1.15, 0.6), "#FFFFFF", neck, bevel=0.22)
+    _hold(cid, n, {"arm.L": (-62, 0, -18), "arm.R": (-62, 0, 18), "neck": (10, 0, 0)}, ease=5)
+    for f, sc in ((1, 0.0), (5, 1.0)):   # pillow comes up with the hands
+        pil.scale = (sc,) * 3
+        pil.keyframe_insert("scale", frame=f)
+
+
+def think(cid, n):
+    """Hand to chin, head tilted."""
+    _hold(cid, n, {"arm.R": (-125, 0, 34), "neck": (-4, 10, 0)}, ease=8)
+
+
+def nervous(cid, n):
+    """Hands together in front, shoulders in, small fidget."""
+    for f in range(1, n + 1, 6):
+        k = 1 if (f // 6) % 2 else 0.85
+        key_rot(obj(cid, "arm.L"), f, -38 * k, 0, -22)
+        key_rot(obj(cid, "arm.R"), f, -38 * k, 0, 22)
+    key_rot(obj(cid, "neck"), 1, 6, 0, 0)
+
+
+def lean_back(cid, n):
+    """Relaxed, leaning back with arms loose behind."""
+    _hold(cid, n, {"body": (-8, 0, 0), "arm.L": (25, -12, 0), "arm.R": (25, 12, 0), "neck": (-6, 0, 0)}, ease=10)
+
+
+def doze(cid, n):
+    """Falling asleep: head drops and bobs."""
+    neck = obj(cid, "neck")
+    key_rot(neck, 1, 0)
+    for i, f in enumerate(range(10, n, 14)):
+        key_rot(neck, f, 24 if i % 2 == 0 else 14, 6)
+    key_rot(obj(cid, "arm.L"), 1, 0, -6, 0)
+    key_rot(obj(cid, "arm.R"), 1, 0, 6, 0)
+
+
+def head_tilt(cid, n, deg=14):
+    _hold(cid, n, {"neck": (0, deg, 0)}, ease=8)
+
+
+def look(cid, n, deg=25):
+    """Turn the head left (+) or right (-) without moving the body."""
+    _hold(cid, n, {"neck": (0, 0, deg)}, ease=6)
+
+
+def sit_cross(cid, n, seat_top=0.0):
+    """Cross-legged on the floor / a sleeping bag: thighs forward and splayed so the feet cross in front."""
+    root = obj(cid)
+    sc = root.scale.z
+    body = obj(cid, "body")
+    body.location.z = (seat_top + root.get("leg_w", 0.98) / 2) / sc
+    key_rot(obj(cid, "leg.L"), 1, -90, 0, -38)
+    key_rot(obj(cid, "leg.R"), 1, -90, 0, 38)
+    for side, s in (("L", 1), ("R", -1)):   # hands resting on the knees
+        key_rot(obj(cid, f"arm.{side}"), 1, -35, 0, s * -8)
+
+
 ACTIONS = {
     "idle": idle, "walk": walk, "run": walk, "wave": wave, "point": point, "give": give,
     "cross_arms": cross_arms, "lean_in": lean_in, "unlean": unlean, "drink": drink, "hold": hold,
     "shock": shock, "cheer": cheer, "shrug": shrug, "sad": sad, "fan": fan,
     "look_around": look_around, "look_through": look_through, "turn": turn,
     "hug": hug, "talk": talk, "phone": phone,
+    "hands_hips": hands_hips, "facepalm": facepalm, "hide_face": hide_face, "think": think, "nervous": nervous,
+    "lean_back": lean_back, "doze": doze, "head_tilt": head_tilt, "look": look,
 }
 
 

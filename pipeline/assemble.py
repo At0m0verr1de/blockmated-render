@@ -60,6 +60,8 @@ Style: Title,{FONT},104,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,1,0,0,0,100,
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     ev = [f"Dialogue: 1,{ts(0.15)},{ts(2.8)},Title,,0,0,0,,{{\\fad(200,300)}}{esc(spec['title'])}"]
+    if spec.get("title_card") is False:   # craftee-style reels open straight on the first caption
+        ev = []
     upper = spec.get("caption_style") == "upper"   # 2-4 words on two lines, upper-middle, green keyword
     per = 4 if upper else 2
     words = [w for s in spec["shots"] for w in s["words"]]

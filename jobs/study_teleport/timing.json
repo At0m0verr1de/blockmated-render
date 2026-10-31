@@ -40,7 +40,7 @@
      "expr": "smug",
      "do": [
       [
-       "idle"
+       "lean_back"
       ]
      ],
      "sit": 2.4
@@ -123,7 +123,7 @@
      "expr": "shock",
      "do": [
       [
-       "idle"
+       "nervous"
       ]
      ],
      "sit": 2.4
@@ -203,7 +203,7 @@
      "expr": "huh",
      "do": [
       [
-       "idle"
+       "look"
       ]
      ],
      "sit": 2.4
@@ -279,7 +279,7 @@
      "expr": "smug",
      "do": [
       [
-       "idle"
+       "head_tilt"
       ]
      ],
      "sit": 2.4
@@ -651,7 +651,7 @@
      "expr": "shook",
      "do": [
       [
-       "idle"
+       "nervous"
       ]
      ]
     }
@@ -800,7 +800,7 @@
      "expr": "cooked",
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ]
     }
@@ -1084,7 +1084,7 @@
      "expr": "cooked",
      "do": [
       [
-       "idle"
+       "facepalm"
       ]
      ],
      "sit": 2.2
@@ -1246,7 +1246,7 @@
      ],
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ],
      "sit": 2.2
@@ -1461,7 +1461,7 @@
      "expr": "deadpan",
      "do": [
       [
-       "idle"
+       "lean_back"
       ]
      ],
      "sit": 2.5
@@ -1476,7 +1476,7 @@
      "expr": "nervous",
      "do": [
       [
-       "idle"
+       "nervous"
       ]
      ],
      "sit": 2.5
@@ -1533,7 +1533,7 @@
      "expr": "rage",
      "do": [
       [
-       "talk"
+       "point"
       ]
      ]
     },
@@ -1618,7 +1618,7 @@
      "expr": "shook",
      "do": [
       [
-       "idle"
+       "nervous"
       ]
      ]
     }
@@ -1683,7 +1683,7 @@
      "expr": "smug",
      "do": [
       [
-       "idle"
+       "hands_hips"
       ]
      ],
      "face_to": [
@@ -1701,7 +1701,7 @@
      "expr": "shock",
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ],
      "face_to": [
@@ -1774,7 +1774,7 @@
      "expr": "smug",
      "do": [
       [
-       "idle"
+       "head_tilt"
       ]
      ],
      "face_to": [
@@ -1829,7 +1829,8 @@
      "tc_boy"
     ],
     "size": "medium",
-    "angle": -60
+    "angle": -90,
+    "dist_k": 0.9
    }
   },
   {
@@ -1878,7 +1879,7 @@
      "expr": "shook",
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ],
      "face_to": [
@@ -1954,7 +1955,7 @@
      "expr": "sleepy",
      "do": [
       [
-       "idle"
+       "doze"
       ]
      ]
     }
@@ -2045,7 +2046,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_blonde",
@@ -2064,7 +2066,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_afro",
@@ -2083,7 +2086,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_kid",
@@ -2102,7 +2106,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_girl",
@@ -2121,7 +2126,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -2205,7 +2211,7 @@
      "expr": "shook",
      "do": [
       [
-       "idle"
+       "nervous"
       ]
      ]
     }
@@ -2291,7 +2297,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_blonde",
@@ -2310,7 +2317,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_afro",
@@ -2329,7 +2337,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_kid",
@@ -2348,7 +2357,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_girl",
@@ -2367,7 +2377,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -2435,14 +2446,15 @@
      "expr": "side_eye",
      "do": [
       [
-       "idle"
+       "think"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_blonde",
@@ -2461,7 +2473,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_afro",
@@ -2473,14 +2486,15 @@
      "expr": "side_eye",
      "do": [
       [
-       "idle"
+       "head_tilt"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_kid",
@@ -2492,14 +2506,15 @@
      "expr": "side_eye",
      "do": [
       [
-       "idle"
+       "lean_back"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_girl",
@@ -2518,7 +2533,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -2589,7 +2605,8 @@
       -5.37,
       -1.6
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_girl",
@@ -2608,7 +2625,8 @@
       2.12,
       7.33
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -2649,12 +2667,9 @@
    "speech_end": 30.49815533980582,
    "end": 30.77,
    "frame": {
-    "on": [
-     "tc_blonde",
-     "tc_girl"
-    ],
+    "on": "tc_blonde",
     "size": "medium",
-    "angle": 60
+    "angle": -20
    }
   },
   {
@@ -2694,14 +2709,15 @@
      ],
      "do": [
       [
-       "idle"
+       "head_tilt"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -2788,14 +2804,15 @@
      "expr": "shock",
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_blonde",
@@ -2807,14 +2824,15 @@
      "expr": "shock",
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_afro",
@@ -2826,14 +2844,15 @@
      "expr": "shock",
      "do": [
       [
-       "idle"
+       "shock"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_kid",
@@ -2852,7 +2871,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     },
     {
      "id": "tc_girl",
@@ -2871,7 +2891,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -2920,14 +2941,15 @@
      "expr": "squeeze",
      "do": [
       [
-       "idle"
+       "hide_face"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -3087,7 +3109,8 @@
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -3174,14 +3197,15 @@
      ],
      "do": [
       [
-       "idle"
+       "head_tilt"
       ]
      ],
      "face_to": [
       0,
       1.5
      ],
-     "sit": 0.9
+     "sit": 0.6,
+     "cross": true
     }
    ],
    "no_punch": true,
@@ -3248,5 +3272,6 @@
  "duration": 38.0,
  "caption_style": "upper",
  "body": "slim",
- "grade": "warm"
+ "grade": "warm",
+ "title_card": false
 }
