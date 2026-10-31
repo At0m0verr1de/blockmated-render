@@ -14,7 +14,7 @@ say() { printf "\033[1;35m▸ %s\033[0m\n" "$*"; }
 die() { printf "\033[1;31m✗ %s\033[0m\n" "$*" >&2; exit 1; }
 
 # ---------------------------------------------------------------- setup checks
-[ -x "$BLENDER" ] || die "Blender not found at $BLENDER. Install Blender 3.6 LTS: https://www.blender.org/download/lts/3-6/ (or set BLENDER=/path/to/Blender)"
+[ -x "$BLENDER" ] || die "Blender not found at $BLENDER. Run ./install_blender.sh (or set BLENDER=/path/to/Blender)"
 "$BLENDER" --version 2>/dev/null | head -1 | grep -q "Blender 3\.6" \
   || printf "\033[33m! %s is not Blender 3.6 LTS; output may differ from the main Mac.\033[0m\n" "$("$BLENDER" --version 2>/dev/null | head -1)"
 command -v ffmpeg >/dev/null || die "ffmpeg missing: brew install ffmpeg"

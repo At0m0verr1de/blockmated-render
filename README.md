@@ -11,8 +11,12 @@ brew install ffmpeg gh
 gh auth login                                   # GitHub account that owns this repo
 git clone https://github.com/At0m0verr1de/blockmated-render.git
 ```
-Install **Blender 3.6 LTS** into /Applications: https://www.blender.org/download/lts/3-6/
-(newer Blender versions changed EEVEE and won't match; set `BLENDER=/path/to/Blender` if it lives elsewhere).
+Then install **Blender 3.6 LTS** (newer versions changed EEVEE and won't match):
+```bash
+cd blockmated-render && ./install_blender.sh   # downloads 3.6.23 from Blender's mirrors, verifies the checksum
+```
+If no mirror is reachable, copy `/Applications/Blender.app` (3.6) from the main Mac by AirDrop or USB.
+Set `BLENDER=/path/to/Blender` if it lives somewhere other than /Applications.
 
 ## Render
 
