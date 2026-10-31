@@ -7,7 +7,8 @@ music is synthesized, so there are no third-party assets here. No credentials ar
 ## One-time setup (office Mac)
 
 ```bash
-brew install ffmpeg gh
+brew tap homebrew-ffmpeg/ffmpeg
+brew install homebrew-ffmpeg/ffmpeg/ffmpeg gh   # this ffmpeg includes libass (captions); Homebrew's main one no longer does
 gh auth login                                   # GitHub account that owns this repo
 git clone https://github.com/At0m0verr1de/blockmated-render.git
 ```

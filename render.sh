@@ -17,7 +17,10 @@ die() { printf "\033[1;31m✗ %s\033[0m\n" "$*" >&2; exit 1; }
 [ -x "$BLENDER" ] || die "Blender not found at $BLENDER. Run ./install_blender.sh (or set BLENDER=/path/to/Blender)"
 "$BLENDER" --version 2>/dev/null | head -1 | grep -q "Blender 3\.6" \
   || printf "\033[33m! %s is not Blender 3.6 LTS; output may differ from the main Mac.\033[0m\n" "$("$BLENDER" --version 2>/dev/null | head -1)"
-command -v ffmpeg >/dev/null || die "ffmpeg missing: brew install ffmpeg"
+command -v ffmpeg >/dev/null || die "ffmpeg missing: brew tap homebrew-ffmpeg/ffmpeg && brew install homebrew-ffmpeg/ffmpeg/ffmpeg"
+# Captions are burned in with the libass "ass" filter. Homebrew's main ffmpeg (9.x) no longer includes it.
+ffmpeg -hide_banner -filters 2>/dev/null | grep -qE "^ [.A-Z|]+ ass " \
+  || die "This ffmpeg can't draw captions (no libass). Fix: brew uninstall ffmpeg && brew tap homebrew-ffmpeg/ffmpeg && brew install homebrew-ffmpeg/ffmpeg/ffmpeg"
 command -v gh >/dev/null || die "GitHub CLI missing: brew install gh && gh auth login"
 gh auth status >/dev/null 2>&1 || die "Not logged in to GitHub: run  gh auth login"
 if [ ! -x .venv/bin/python ]; then
