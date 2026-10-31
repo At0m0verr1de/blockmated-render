@@ -358,6 +358,31 @@ def build_accessories(c, neck, chest):
             for s in (-1, 1):
                 box(f"{cid}.beard", (0.2, 0.12, 0.5), (s * 0.55, FACE_Y - 0.02, 0.38), col, neck, bevel=0.06)  # jaw sides
             box(f"{cid}.beard", (0.42, 0.1, 0.08), (0, FACE_Y - 0.04, 0.47), col, neck, bevel=0.03)  # moustache
+        elif t == "bow":            # big hair bow on one side
+            for dx, rz in ((-0.32, 25), (0.32, -25)):
+                box(f"{cid}.bow", (0.5, 0.26, 0.38), (0.42 + dx * 0.9, 0.05, 1.38), col, neck, bevel=0.1, rot=(0, rz, 0))
+            box(f"{cid}.bow", (0.2, 0.3, 0.22), (0.42, 0.05, 1.38), col, neck, bevel=0.06)
+        elif t == "beanie":
+            box(f"{cid}.beanie", (1.42, 1.3, 0.62), (0, 0.02, 1.36), col, neck, bevel=0.2)
+            box(f"{cid}.beanie", (1.46, 1.34, 0.24), (0, 0.02, 1.12), a.get("band", shade(col, 0.8)), neck, bevel=0.08)
+            box(f"{cid}.beanie", (0.36, 0.36, 0.3), (0, 0.02, 1.75), a.get("pom", "#FFFFFF"), neck, bevel=0.14)
+        elif t == "headband":
+            box(f"{cid}.headband", (1.38, 1.26, 0.16), (0, 0.02, 1.17), col, neck, bevel=0.06)
+        elif t == "headphones":
+            box(f"{cid}.phones", (1.5, 0.22, 0.16), (0, 0.0, 1.42), col, neck, bevel=0.06)
+            for sx in (-1, 1):
+                box(f"{cid}.phones", (0.12, 0.2, 0.7), (sx * 0.74, 0.0, 1.05), col, neck, bevel=0.04)
+                box(f"{cid}.phones", (0.26, 0.6, 0.6), (sx * 0.74, 0.0, 0.62), a.get("cups", col), neck, bevel=0.12)
+        elif t == "earrings":
+            for sx in (-1, 1):
+                box(f"{cid}.earring", (0.12, 0.12, 0.2), (sx * 0.68, -0.05, 0.3), col, neck, bevel=0.05)
+        elif t == "backpack":       # on the back, straps over the shoulders
+            d = BODIES[BODY_STYLE]["torso_d"]
+            box(f"{cid}.backpack", (1.3, 0.6, 1.5), (0, d / 2 + 0.3, 1.05), col, chest, bevel=0.15)
+            box(f"{cid}.backpack", (1.0, 0.25, 0.6), (0, d / 2 + 0.66, 0.75), shade(col, 0.85), chest, bevel=0.1)
+            for sx in (-1, 1):
+                box(f"{cid}.strap", (0.18, d + 0.08, 0.14), (sx * 0.42, 0, 2.0), shade(col, 0.7), chest, bevel=0.04)
+                box(f"{cid}.strap", (0.18, 0.08, 1.2), (sx * 0.42, -d / 2 - 0.04, 1.4), shade(col, 0.7), chest, bevel=0.04)
         elif t == "fedora":
             box(f"{cid}.hat", (1.85, 1.75, 0.07), (0, 0.02, 1.24), col, neck, bevel=0.03)
             box(f"{cid}.hat", (1.3, 1.2, 0.55), (0, 0.02, 1.53), col, neck, bevel=0.1)

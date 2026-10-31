@@ -335,6 +335,34 @@ def sit_cross(cid, n, seat_top=0.0):
         key_rot(obj(cid, f"arm.{side}"), 1, -35, 0, s * -8)
 
 
+def pop_in(cid, n, color="#B9F3FF"):
+    """Teleport arrival: a white flash puff, the character pops from nothing with an overshoot, sparkles fly out."""
+    import random
+    from blocky import box
+    from sets import ebox
+    root = obj(cid)
+    s0 = root.scale.x
+    for f, k in ((1, 0.0), (4, 1.18), (7, 0.94), (9, 1.0)):
+        root.scale = (s0 * k,) * 3
+        root.keyframe_insert("scale", frame=f)
+    rnd = random.Random(len(cid))
+    base = root.location.copy()
+    for i in range(14):
+        sp = ebox(f"{cid}.spark", (0.25, 0.25, 0.25), (0, 0, 0), color if i % 2 else "#FFFFFF", 8.0, bevel=0.08)
+        a, up = rnd.uniform(0, 6.283), rnd.uniform(1.5, 5.5)
+        r = rnd.uniform(1.8, 3.2)
+        for f, t in ((1, 0.0), (10, 1.0)):
+            sp.location = (base.x + math.cos(a) * r * t, base.y + math.sin(a) * r * t, up + 1.2 * t)
+            sp.keyframe_insert("location", frame=f)
+        for f, k in ((1, 0.0), (2, 1.0), (8, 1.0), (12, 0.0)):   # zero at the start: nothing shows before the pop
+            sp.scale = (k,) * 3
+            sp.keyframe_insert("scale", frame=f)
+    puff = ebox(f"{cid}.puff", (3.0, 3.0, 5.5), (base.x, base.y, 2.8), "#FFFFFF", 3.0, bevel=1.2)
+    for f, k in ((1, 0.0), (3, 1.0), (7, 0.0)):
+        puff.scale = (k,) * 3
+        puff.keyframe_insert("scale", frame=f)
+
+
 ACTIONS = {
     "idle": idle, "walk": walk, "run": walk, "wave": wave, "point": point, "give": give,
     "cross_arms": cross_arms, "lean_in": lean_in, "unlean": unlean, "drink": drink, "hold": hold,
@@ -342,7 +370,7 @@ ACTIONS = {
     "look_around": look_around, "look_through": look_through, "turn": turn,
     "hug": hug, "talk": talk, "phone": phone,
     "hands_hips": hands_hips, "facepalm": facepalm, "hide_face": hide_face, "think": think, "nervous": nervous,
-    "lean_back": lean_back, "doze": doze, "head_tilt": head_tilt, "look": look,
+    "lean_back": lean_back, "doze": doze, "head_tilt": head_tilt, "look": look, "pop_in": pop_in,
 }
 
 

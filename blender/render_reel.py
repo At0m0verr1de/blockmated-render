@@ -225,6 +225,9 @@ def punch_frame(shot, n):
     return min(starts, key=lambda f: abs(f - n / 2)) if starts else None
 
 
+shot_words, shot_start = [], 0.0
+
+
 def actor(a, n, idx):
     c = copy.deepcopy(cast[a["id"]])
     if "scale" in a:
@@ -244,15 +247,56 @@ def actor(a, n, idx):
     if a.get("holding"):
         add_prop(a["holding"], cid, a)
     for item in a.get("do", [["idle"]]):
-        name, params = item[0], (item[1] if len(item) > 1 else {})
+        name, params = item[0], dict(item[1] if len(item) > 1 else {})
+        # timing: {"word": k} starts on the k-th word of this shot, {"at": 0.4} at 40% of the shot
+        f0 = 1
+        if "word" in params:
+            ws = shot_words[params.pop("word")] if shot_words else None
+            f0 = max(1, round((ws["start"] - shot_start) * anim.FPS)) if ws else 1
+        elif "at" in params:
+            f0 = max(1, round(params.pop("at") * n))
+        before = _keys(cid) if f0 > 1 else None
+        m = n - f0 + 1
         fn = anim.ACTIONS[name]
         if name in ("walk", "run"):
-            fn(cid, n, start=at, **params)
+            fn(cid, m, start=at, **params)
         elif name == "idle":
-            fn(cid, n, seed=idx)
+            fn(cid, m, seed=idx)
         else:
-            fn(cid, n, **params)
+            fn(cid, m, **params)
+        if before is not None:
+            _shift_new(cid, before, f0 - 1)
     return root
+
+
+def _char_objects(cid):
+    return [o for o in bpy.data.objects if o.name == cid or o.name.startswith(cid + ".")]
+
+
+def _keys(cid):
+    seen = set()
+    for o in _char_objects(cid):
+        ad = o.animation_data
+        if ad and ad.action:
+            for fc in ad.action.fcurves:
+                for kp in fc.keyframe_points:
+                    seen.add((o.name, fc.data_path, fc.array_index, round(kp.co.x)))
+    return seen
+
+
+def _shift_new(cid, before, df):
+    """Move keyframes an action just added so it starts df frames later (it holds the earlier pose until then)."""
+    for o in _char_objects(cid):
+        ad = o.animation_data
+        if not (ad and ad.action):
+            continue
+        for fc in ad.action.fcurves:
+            new = [kp for kp in fc.keyframe_points if (o.name, fc.data_path, fc.array_index, round(kp.co.x)) not in before]
+            for kp in sorted(new, key=lambda k: -k.co.x):
+                kp.co.x += df
+                kp.handle_left.x += df
+                kp.handle_right.x += df
+            fc.update()
 
 
 def hud(items):
@@ -348,6 +392,8 @@ def render_shot(i, shot):
             sets_fixed.van(**o["van"])
         else:
             kit.place(o["kit"], o["name"], tuple(o.get("at", (0, 0, 0))), o.get("rot", 0), o.get("scale", 1))
+    global shot_words, shot_start
+    shot_words, shot_start = shot.get("words", []), shot["start"]
     for k, a in enumerate(shot.get("actors", [])):
         actor(a, n, k)
     machine_fx(m, shot.get("machine"), n)

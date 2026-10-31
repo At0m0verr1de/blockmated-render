@@ -627,7 +627,12 @@
       "face": {
         "expression": "smile"
       },
-      "accessories": []
+      "accessories": [
+        {
+          "type": "backpack",
+          "color": "#3A6FD8"
+        }
+      ]
     },
     {
       "id": "tc_boy_pj",
@@ -776,7 +781,12 @@
       "face": {
         "expression": "smile"
       },
-      "accessories": []
+      "accessories": [
+        {
+          "type": "earrings",
+          "color": "#F2C230"
+        }
+      ]
     },
     {
       "id": "tc_pink",
@@ -803,7 +813,12 @@
       "face": {
         "expression": "smile"
       },
-      "accessories": []
+      "accessories": [
+        {
+          "type": "bow",
+          "color": "#E2526B"
+        }
+      ]
     },
     {
       "id": "tc_blonde",
@@ -830,7 +845,12 @@
       "face": {
         "expression": "smile"
       },
-      "accessories": []
+      "accessories": [
+        {
+          "type": "headband",
+          "color": "#FF7AA8"
+        }
+      ]
     },
     {
       "id": "tc_afro",
@@ -857,7 +877,12 @@
       "face": {
         "expression": "smile"
       },
-      "accessories": []
+      "accessories": [
+        {
+          "type": "earrings",
+          "color": "#F2C230"
+        }
+      ]
     },
     {
       "id": "tc_kid",
@@ -884,7 +909,13 @@
       "face": {
         "expression": "smile"
       },
-      "accessories": []
+      "accessories": [
+        {
+          "type": "headphones",
+          "color": "#2B2B2B",
+          "cups": "#E2526B"
+        }
+      ]
     }
   ],
   "extras": [
