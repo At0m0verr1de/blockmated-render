@@ -45,9 +45,34 @@ SHOTS=$(.venv/bin/python -c "import json;print(len(json.load(open('$OUT/timing.j
 DUR=$(.venv/bin/python -c "import json;print(round(json.load(open('$OUT/timing.json'))['duration']))")
 say "Rendering $ID: $SHOTS shots, ${DUR}s (finished shots are kept if you stop and re-run)"
 START=$(date +%s)
-"$BLENDER" -b -P blender/render_reel.py -- "$OUT/timing.json" 2>&1 \
-  | grep -E --line-buffered "rendered|skip|Error|Traceback" \
-  | while IFS= read -r line; do printf "  [%s] %s\n" "$(date +%H:%M:%S)" "$line"; done
+"$BLENDER" -b -P blender/render_reel.py -- "$OUT/timing.json" > "$OUT/blender.log" 2>&1 &
+BPID=$!
+trap 'kill $BPID 2>/dev/null' INT TERM
+# Blender buffers its output when piped, so show progress from the progress file it writes.
+while kill -0 $BPID 2>/dev/null; do
+  .venv/bin/python - "$OUT" "$START" <<'PY'
+import json, sys, time
+from pathlib import Path
+out, start = Path(sys.argv[1]), float(sys.argv[2])
+t = json.loads((out / "timing.json").read_text())["shots"]
+frames = [max(12, round((s["end"] - s["start"]) * 24)) for s in t]
+done = [i for i in range(len(t)) if (out / "shots" / f"{i:02d}.mp4").exists()]
+cur = 0
+p = out / "progress.json"
+if p.exists():
+    j = json.loads(p.read_text())
+    if j["shot"] not in done:
+        cur = j["frame"]
+f_done = sum(frames[i] for i in done) + cur
+pct = f_done / sum(frames)
+el = time.time() - start
+eta = f" · ~{int(el / pct * (1 - pct) / 60) + 1} min left" if pct > 0.03 else ""
+print(f"\r  shots {len(done)}/{len(t)} · {pct:5.1%} · {int(el // 60)}m{int(el % 60):02d}s{eta}      ", end="", flush=True)
+PY
+  sleep 5
+done
+echo
+wait $BPID || { tail -20 "$OUT/blender.log"; die "Blender failed (log: $OUT/blender.log)"; }
 DONE=$(ls "$OUT/shots"/*.mp4 2>/dev/null | wc -l | tr -d ' ')
 [ "$DONE" -eq "$SHOTS" ] || die "Only $DONE/$SHOTS shots rendered; re-run ./render.sh $ID to continue."
 
