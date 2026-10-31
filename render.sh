@@ -48,6 +48,18 @@ mkdir -p "$OUT"
 cp "jobs/$ID/timing.json" "jobs/$ID/narration.wav" "$OUT/"
 SHOTS=$(.venv/bin/python -c "import json;print(len(json.load(open('$OUT/timing.json'))['shots']))")
 DUR=$(.venv/bin/python -c "import json;print(round(json.load(open('$OUT/timing.json'))['duration']))")
+# Re-render any shot whose settings changed since it was rendered (fingerprint per shot).
+SIG='import hashlib, json, sys; from pathlib import Path
+out = Path(sys.argv[1]); mode = sys.argv[2]
+shots = json.loads((out / "timing.json").read_text())["shots"]
+for i, s in enumerate(shots):
+    h = hashlib.sha1(json.dumps(s, sort_keys=True).encode()).hexdigest()
+    mp4, sig = out / "shots" / f"{i:02d}.mp4", out / "shots" / f"{i:02d}.sig"
+    if mode == "check" and mp4.exists() and (not sig.exists() or sig.read_text() != h):
+        mp4.unlink(); print(f"  shot {i + 1} changed, will re-render")
+    if mode == "write" and mp4.exists():
+        sig.write_text(h)'
+.venv/bin/python -c "$SIG" "$OUT" check
 say "Rendering $ID: $SHOTS shots, ${DUR}s (finished shots are kept if you stop and re-run)"
 START=$(date +%s)
 "$BLENDER" -b -P blender/render_reel.py -- "$OUT/timing.json" > "$OUT/blender.log" 2>&1 &
@@ -80,6 +92,7 @@ echo
 wait $BPID || { tail -20 "$OUT/blender.log"; die "Blender failed (log: $OUT/blender.log)"; }
 DONE=$(ls "$OUT/shots"/*.mp4 2>/dev/null | wc -l | tr -d ' ')
 [ "$DONE" -eq "$SHOTS" ] || die "Only $DONE/$SHOTS shots rendered; re-run ./render.sh $ID to continue."
+.venv/bin/python -c "$SIG" "$OUT" write
 
 say "Assembling (captions, music, narration)"
 .venv/bin/python pipeline/assemble.py "$OUT/timing.json"
