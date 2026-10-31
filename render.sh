@@ -13,13 +13,17 @@ BLENDER="${BLENDER:-/Applications/Blender.app/Contents/MacOS/Blender}"
 say() { printf "\033[1;35m▸ %s\033[0m\n" "$*"; }
 die() { printf "\033[1;31m✗ %s\033[0m\n" "$*" >&2; exit 1; }
 
+say "Pulling latest jobs and code"
+git pull --ff-only -q || die "git pull failed (local changes?). Run: git status"
 # ---------------------------------------------------------------- setup checks
 [ -x "$BLENDER" ] || die "Blender not found at $BLENDER. Run ./install_blender.sh (or set BLENDER=/path/to/Blender)"
-"$BLENDER" --version 2>/dev/null | head -1 | grep -q "Blender 3\.6" \
-  || printf "\033[33m! %s is not Blender 3.6 LTS; output may differ from the main Mac.\033[0m\n" "$("$BLENDER" --version 2>/dev/null | head -1)"
+BVER=$("$BLENDER" --version 2>/dev/null || true); BVER=${BVER%%$'\n'*}
+[[ "$BVER" == "Blender 3.6"* ]] || printf "\033[33m! %s is not Blender 3.6 LTS; output may differ from the main Mac.\033[0m\n" "$BVER"
 command -v ffmpeg >/dev/null || die "ffmpeg missing: brew tap homebrew-ffmpeg/ffmpeg && brew install homebrew-ffmpeg/ffmpeg/ffmpeg"
 # Captions are burned in with the libass "ass" filter. Homebrew's main ffmpeg (9.x) no longer includes it.
-ffmpeg -hide_banner -filters 2>/dev/null | grep -qE "^ [.A-Z|]+ ass " \
+# (capture first: with pipefail, `ffmpeg | grep -q` fails when grep stops reading early)
+FILTERS=$(ffmpeg -hide_banner -filters 2>/dev/null || true)
+grep -qE "^ [.A-Za-z|]+ ass " <<<"$FILTERS" \
   || die "This ffmpeg can't draw captions (no libass). Fix: brew uninstall ffmpeg && brew tap homebrew-ffmpeg/ffmpeg && brew install homebrew-ffmpeg/ffmpeg/ffmpeg"
 command -v gh >/dev/null || die "GitHub CLI missing: brew install gh && gh auth login"
 gh auth status >/dev/null 2>&1 || die "Not logged in to GitHub: run  gh auth login"
@@ -28,10 +32,8 @@ if [ ! -x .venv/bin/python ]; then
   python3 -m venv .venv && .venv/bin/python -m pip install -q --upgrade pip numpy
 fi
 
-say "Pulling latest jobs and code"
-git pull --ff-only -q
 
-released() { gh release list --limit 200 --json tagName -q '.[].tagName' 2>/dev/null | grep -q "^$1-render-"; }
+released() { local tags; tags=$(gh release list --limit 200 --json tagName -q '.[].tagName' 2>/dev/null || true); grep -q "^$1-render-" <<<"$tags"; }
 
 if [ "${1:-}" = "--list" ]; then
   for d in jobs/*/; do id=$(basename "$d"); released "$id" && s="rendered" || s="pending"; echo "$id  $s"; done
@@ -88,5 +90,5 @@ MINS=$(( ($(date +%s) - START) / 60 ))
 say "Uploading to GitHub Release $TAG"
 gh release create "$TAG" "$OUT/$ID.mp4" "$OUT"/export/* \
   --title "$ID ($(date '+%d %b %H:%M'))" \
-  --notes "Rendered on $(scutil --get ComputerName 2>/dev/null || hostname) in ${MINS} min with $("$BLENDER" --version 2>/dev/null | head -1). ${SHOTS} shots, ${DUR}s." >/dev/null
+  --notes "Rendered on $(scutil --get ComputerName 2>/dev/null || hostname) in ${MINS} min with ${BVER}. ${SHOTS} shots, ${DUR}s." >/dev/null
 printf "\033[1;32m✓ Done in %s min: %s\033[0m\n" "$MINS" "$(gh release view "$TAG" --json url -q .url)"
