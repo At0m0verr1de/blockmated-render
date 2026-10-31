@@ -222,7 +222,7 @@ def render_shot(i, shot):
     if shot["set"] == "hallway":
         m = sets.hallway(shot.get("time", "day"), [tuple(l) for l in spec.get("labels", [])])
     elif shot["set"] == "classroom":
-        sets.classroom(shot.get("time", "day"))
+        sets.classroom(shot.get("time", "day"), spec.get("board"))
     elif shot["set"] == "bedroom":
         sets.bedroom(shot.get("time", "night"))
     for k, a in enumerate(shot.get("actors", [])):

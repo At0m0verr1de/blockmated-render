@@ -225,12 +225,14 @@ def hallway(time="day", labels=None):
     return m
 
 
-def classroom(time="day"):
+def classroom(time="day", board=None):
+    """board: optional [headline, second line] for the chalkboard; defaults to the first-day text."""
     room_shell(44, 36, 14, "#C8935A", "#F6EBD0", "#7A5A3A", back_y=18.0)
     box("chalkboard", (14, 0.2, 4.8), (0, 17.8, 7.0), "#2F4F3A", None, bevel=0.05)
     box("chalk.tray", (14, 0.6, 0.2), (0, 17.6, 4.5), "#B9874B", None, bevel=0.03)
-    text("First Day of School!", (0, 17.68, 7.6), 0.8, "#F4F1E8")
-    text("2 + 2 = 4", (-3.5, 17.68, 6.0), 0.6, "#F4F1E8")
+    head, sub_line = board or ("First Day of School!", "2 + 2 = 4")
+    text(head, (0, 17.68, 7.6), 0.8, "#F4F1E8")
+    text(sub_line, (-3.5, 17.68, 6.0), 0.6, "#F4F1E8")
     for s in (-1, 1):  # windows on the side walls
         for y in (-4, 4):
             ebox("window", (0.2, 5.0, 4.5), (s * 21.7, y, 7.5), "#BFE3FF", 1.2)

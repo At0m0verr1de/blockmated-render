@@ -185,6 +185,119 @@
           "band": "#7A2A2A"
         }
       ]
+    },
+    {
+      "id": "milo_lie",
+      "name": "Milo's Lie",
+      "role": "The Lie Who Moved In: a pale-blue grinning Milo born from 'yes, I did my homework'. Grows with every cover-up lie.",
+      "scale": 1.0,
+      "skin": "#CFE0FF",
+      "hair": {
+        "style": "messy",
+        "color": "#7FA2E6"
+      },
+      "torso": {
+        "color": "#E4EEFF",
+        "detail": "hoodie",
+        "accent": "#B8CCF5",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#E4EEFF",
+        "length": "long"
+      },
+      "pants": "#97B2E3",
+      "shoes": "#F4F8FF",
+      "face": {
+        "expression": "grin"
+      },
+      "accessories": []
+    },
+    {
+      "id": "benny_lie",
+      "name": "Benny's Lie",
+      "role": "Benny's 'I'm not scared of the dark'. Cat-sized, sleeps under his bed, holds his hand.",
+      "scale": 1.0,
+      "skin": "#CFE0FF",
+      "hair": {
+        "style": "buzz",
+        "color": "#7FA2E6"
+      },
+      "torso": {
+        "color": "#E4EEFF",
+        "detail": "tee_stripe",
+        "accent": "#B8CCF5",
+        "width": 2.4
+      },
+      "sleeves": {
+        "color": "#E4EEFF",
+        "length": "short"
+      },
+      "pants": "#97B2E3",
+      "shoes": "#F4F8FF",
+      "face": {
+        "expression": "grin"
+      },
+      "accessories": [
+        {
+          "type": "cap_back",
+          "color": "#B8CCF5"
+        }
+      ]
+    },
+    {
+      "scale": 0.97,
+      "face": {
+        "expression": "grin"
+      },
+      "accessories": [],
+      "id": "lie1",
+      "name": "Jo's Lie",
+      "role": "Background tiny lie that sits under Jo's desk.",
+      "skin": "#CFE0FF",
+      "hair": {
+        "style": "bob",
+        "color": "#7FA2E6"
+      },
+      "torso": {
+        "color": "#E4EEFF",
+        "detail": "sweater",
+        "accent": "#B8CCF5",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#E4EEFF",
+        "length": "long"
+      },
+      "pants": "#97B2E3",
+      "shoes": "#F4F8FF"
+    },
+    {
+      "scale": 0.97,
+      "face": {
+        "expression": "grin"
+      },
+      "accessories": [],
+      "id": "lie2",
+      "name": "Rafi's Lie",
+      "role": "Rafi's 'I cleaned my room'. Taller than the lockers.",
+      "skin": "#CFE0FF",
+      "hair": {
+        "style": "messy",
+        "color": "#7FA2E6"
+      },
+      "torso": {
+        "color": "#E4EEFF",
+        "detail": "hoodie",
+        "accent": "#B8CCF5",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#E4EEFF",
+        "length": "long"
+      },
+      "pants": "#97B2E3",
+      "shoes": "#F4F8FF"
     }
   ],
   "extras": [
