@@ -1736,14 +1736,26 @@
    "text": "He followed me home.",
    "set": "bedroom",
    "time": "night",
-   "cam": "bed",
+   "cam": {
+    "pos": [
+     10,
+     -12,
+     6
+    ],
+    "look": [
+     3,
+     -2,
+     3.5
+    ],
+    "lens": 30
+   },
    "push": 0.1,
    "actors": [
     {
      "id": "milo",
      "at": [
-      6,
-      -4
+      7,
+      -3
      ],
      "expr": "worried",
      "do": [
@@ -1751,7 +1763,7 @@
        "walk",
        {
         "to": [
-         0.5,
+         1,
          0
         ]
        }
@@ -1761,8 +1773,8 @@
     {
      "id": "milo_lie",
      "at": [
-      8,
-      -5
+      9,
+      -4.5
      ],
      "scale": 0.4,
      "expr": "grin",
@@ -1771,8 +1783,8 @@
        "walk",
        {
         "to": [
-         2.6,
-         -0.8
+         3,
+         -1.5
         ]
        }
       ]
@@ -1803,7 +1815,8 @@
      "end": 35.92391304347826
     }
    ],
-   "end": 36.144927536231876
+   "end": 36.144927536231876,
+   "no_punch": true
   },
   {
    "text": "That night, he did my homework.",
@@ -2877,16 +2890,16 @@
    "time": "night",
    "cam": {
     "pos": [
-     3.5,
-     -8.5,
-     6.0
+     1,
+     -12,
+     6.5
     ],
     "look": [
-     1.0,
-     1.0,
-     5.6
+     0.9,
+     1,
+     6.0
     ],
-    "lens": 32
+    "lens": 30
    },
    "push": 0.1,
    "actors": [
@@ -2959,7 +2972,8 @@
      "end": 60.74999999999999
     }
    ],
-   "end": 60.97101449275361
+   "end": 60.97101449275361,
+   "no_punch": true
   },
   {
    "text": "Mom just said, set an extra plate.",
@@ -3040,7 +3054,19 @@
    "text": "I tried locking him in the closet.",
    "set": "bedroom",
    "time": "night",
-   "cam": "bed",
+   "cam": {
+    "pos": [
+     6,
+     -9,
+     5.0
+    ],
+    "look": [
+     1.5,
+     -1,
+     4.4
+    ],
+    "lens": 35
+   },
    "push": 0.1,
    "actors": [
     {
@@ -3049,7 +3075,7 @@
       1.5,
       -1.0
      ],
-     "face": -60,
+     "face": 25,
      "expr": "determined",
      "do": [
       [
@@ -3097,7 +3123,8 @@
      "end": 64.3623188405797
     }
    ],
-   "end": 64.58333333333331
+   "end": 64.58333333333331,
+   "no_punch": true
   },
   {
    "text": "He was already in my bed. In my pajamas.",
@@ -3284,18 +3311,18 @@
    "set": "hallway",
    "cam": {
     "pos": [
-     -1.5,
-     -7,
+     -4.5,
+     -3.5,
      5.2
     ],
     "look": [
      1.8,
      0,
-     4.9
+     4.8
     ],
-    "lens": 50
+    "lens": 40
    },
-   "push": 0.15,
+   "push": 0.1,
    "actors": [
     {
      "id": "pip",
@@ -3411,23 +3438,24 @@
      "end": 71.74637681159417
     }
    ],
-   "end": 71.98550724637678
+   "end": 71.98550724637678,
+   "no_punch": true
   },
   {
    "text": "A lie only leaves when the person you lied to hears the truth.",
    "set": "hallway",
    "cam": {
     "pos": [
-     -1.5,
-     -7,
+     -4.5,
+     -3.5,
      5.2
     ],
     "look": [
      1.8,
      0,
-     4.9
+     4.8
     ],
-    "lens": 50
+    "lens": 40
    },
    "push": 0.1,
    "actors": [
@@ -3535,7 +3563,8 @@
      "end": 74.43115942028983
     }
    ],
-   "end": 74.67028985507244
+   "end": 74.67028985507244,
+   "no_punch": true
   },
   {
    "text": "So on Friday, I stood up in front of the whole class,",
@@ -3543,17 +3572,17 @@
    "cam": {
     "pos": [
      12,
-     4,
+     5,
      6.5
     ],
     "look": [
-     0,
+     -0.5,
      9,
-     5.5
+     6.0
     ],
-    "lens": 28
+    "lens": 24
    },
-   "push": 0.15,
+   "push": 0.1,
    "actors": [
     {
      "id": "milo",
@@ -3670,7 +3699,8 @@
      "end": 76.88043478260867
     }
    ],
-   "end": 77.11956521739128
+   "end": 77.11956521739128,
+   "no_punch": true
   },
   {
    "text": "with a giant smiling me right behind me.",
@@ -3962,14 +3992,14 @@
    "set": "classroom",
    "cam": {
     "pos": [
-     3.0,
-     0.0,
-     4.0
+     1.0,
+     10.0,
+     3.2
     ],
     "look": [
      -2.4,
      4.8,
-     3.0
+     2.6
     ],
     "lens": 35
    },
@@ -4029,18 +4059,18 @@
    "set": "classroom",
    "cam": {
     "pos": [
-     0.2,
-     1.8,
-     2.2
+     -1.0,
+     8.2,
+     1.6
     ],
     "look": [
      -2.4,
      4.8,
-     1.4
+     1.2
     ],
     "lens": 40
    },
-   "push": 0.15,
+   "push": 0.1,
    "no_punch": true,
    "actors": [
     {
@@ -4146,18 +4176,18 @@
    "set": "classroom",
    "cam": {
     "pos": [
-     0.6,
-     10.2,
-     6.6
+     0.8,
+     8.5,
+     6.4
     ],
     "look": [
      0,
      14.5,
-     6.6
+     6.0
     ],
-    "lens": 50
+    "lens": 45
    },
-   "push": 0.15,
+   "push": 0.1,
    "actors": [
     {
      "id": "graves",
@@ -4237,7 +4267,8 @@
      "end": 89.43840579710142
     }
    ],
-   "end": 89.65942028985505
+   "end": 89.65942028985505,
+   "no_punch": true
   },
   {
    "text": "That night, I told Mom everything.",
@@ -4329,18 +4360,18 @@
    "time": "night",
    "cam": {
     "pos": [
-     4.6,
-     -4.5,
-     6.2
+     5.5,
+     -7.0,
+     6.0
     ],
     "look": [
      1.7,
      0.5,
-     6.4
+     5.6
     ],
-    "lens": 45
+    "lens": 40
    },
-   "push": 0.15,
+   "push": 0.1,
    "actors": [
     {
      "id": "mom",
@@ -4435,7 +4466,8 @@
      "end": 93.79347826086953
     }
    ],
-   "end": 94.01449275362319
+   "end": 94.01449275362319,
+   "no_punch": true
   },
   {
    "text": "The day I was born, she held me and whispered, everything is going to be fine.",
@@ -4443,16 +4475,16 @@
    "time": "night",
    "cam": {
     "pos": [
-     4.6,
-     -4.5,
-     6.2
+     5.5,
+     -7.0,
+     6.0
     ],
     "look": [
      1.7,
      0.5,
-     6.4
+     5.6
     ],
-    "lens": 45
+    "lens": 40
    },
    "push": 0.1,
    "actors": [
@@ -4564,7 +4596,8 @@
      "end": 97.1123188405797
     }
    ],
-   "end": 97.35144927536233
+   "end": 97.35144927536233,
+   "no_punch": true
   },
   {
    "text": "Mr. Bramble moved in the next morning.",
@@ -4634,18 +4667,18 @@
    "set": "hallway",
    "cam": {
     "pos": [
-     1.2,
-     -8.5,
+     4.0,
+     -6.5,
      6.4
     ],
     "look": [
      2,
      -1,
-     6.6
+     6.0
     ],
-    "lens": 45
+    "lens": 40
    },
-   "push": 0.2,
+   "push": 0.15,
    "tail": 1.8,
    "actors": [
     {
@@ -4712,7 +4745,8 @@
      "end": 100.86956521739133
     }
    ],
-   "end": 102.83260869565218
+   "end": 102.83260869565218,
+   "no_punch": true
   }
  ],
  "tiktok_caption": "In my town, every lie turns into a person 🤥 What lie would follow you home? #animatedstory #storytime #animation #blockmated",
