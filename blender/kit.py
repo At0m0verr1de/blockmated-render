@@ -11,7 +11,8 @@ import bpy
 
 ROOT = Path(__file__).resolve().parent.parent
 KIT_DIR = ROOT / "assets" / "kenney"
-SCALE = {"furniture-kit": 8.0, "car-kit": 6.0, "city-kit-suburban": 16.0, "city-kit-roads": 16.0}
+SCALE = {"furniture-kit": 8.0, "car-kit": 6.0, "city-kit-suburban": 16.0, "city-kit-roads": 16.0,
+         "food-kit": 1.0, "nature-kit": 9.0}
 
 
 def _path(kit, name):

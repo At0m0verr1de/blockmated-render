@@ -601,6 +601,290 @@
           "color": "#2A2A2A"
         }
       ]
+    },
+    {
+      "id": "tc_boy",
+      "name": "Hero",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 1.0,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "spiky",
+        "color": "#2E9E3E"
+      },
+      "torso": {
+        "color": "#1E1E1E",
+        "detail": "tee_stripe",
+        "accent": "#2FA84A",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#2FA84A",
+        "length": "long"
+      },
+      "pants": "#1E1E1E",
+      "shoes": "#F2F2F2",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_boy_pj",
+      "name": "Hero (pajamas)",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 1.0,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "spiky",
+        "color": "#2E9E3E"
+      },
+      "torso": {
+        "color": "#A9C8F0",
+        "detail": "pajamas",
+        "accent": "#3B5FA8",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#A9C8F0",
+        "length": "long"
+      },
+      "pants": "#A9C8F0",
+      "shoes": "#F2F2F2",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_girl",
+      "name": "Crush",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 1.0,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "long",
+        "color": "#141010"
+      },
+      "torso": {
+        "color": "#1C1C22",
+        "detail": "suit",
+        "accent": "#2A2A33",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#1C1C22",
+        "length": "long"
+      },
+      "pants": "#1C1C22",
+      "shoes": "#141414",
+      "face": {
+        "expression": "smug"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_teacher",
+      "name": "Teacher",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 1.1,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "curly",
+        "color": "#B5462B"
+      },
+      "torso": {
+        "color": "#B9BCC2",
+        "detail": "cardigan",
+        "accent": "#E8E8E8",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#B9BCC2",
+        "length": "long"
+      },
+      "pants": "#B23A3A",
+      "shoes": "#2A2A2A",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": [
+        {
+          "type": "glasses",
+          "color": "#2A2A2A"
+        }
+      ]
+    },
+    {
+      "id": "tc_dad",
+      "name": "Dad",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 1.15,
+      "skin": "#E8B98A",
+      "hair": {
+        "style": "buzz",
+        "color": "#1A1414"
+      },
+      "torso": {
+        "color": "#F4F4F4",
+        "detail": "sweater",
+        "accent": "#E2E2E2",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F4F4F4",
+        "length": "long"
+      },
+      "pants": "#3A3A44",
+      "shoes": "#1A1A1A",
+      "face": {
+        "expression": "stern"
+      },
+      "accessories": [
+        {
+          "type": "glasses",
+          "color": "#1A1A1A"
+        },
+        {
+          "type": "beard",
+          "color": "#1A1414"
+        }
+      ]
+    },
+    {
+      "id": "tc_mom",
+      "name": "Mom",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 1.1,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "curly",
+        "color": "#D8743A"
+      },
+      "torso": {
+        "color": "#F6F2EC",
+        "detail": "cardigan",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F6F2EC",
+        "length": "long"
+      },
+      "pants": "#6B5A8A",
+      "shoes": "#2A2A2A",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_pink",
+      "name": "Sleepover (pink)",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 0.97,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "long",
+        "color": "#F49AC9"
+      },
+      "torso": {
+        "color": "#F7B6D2",
+        "detail": "pajamas",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F7B6D2",
+        "length": "long"
+      },
+      "pants": "#F7B6D2",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_blonde",
+      "name": "Best friend (blonde)",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 0.97,
+      "skin": "#F2C9A0",
+      "hair": {
+        "style": "long",
+        "color": "#F2D16B"
+      },
+      "torso": {
+        "color": "#3EC6C1",
+        "detail": "sweater",
+        "accent": "#2A9C98",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#3EC6C1",
+        "length": "long"
+      },
+      "pants": "#3B3B48",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_afro",
+      "name": "Sleepover (afro)",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 0.97,
+      "skin": "#8D5A3C",
+      "hair": {
+        "style": "afro",
+        "color": "#1E1612"
+      },
+      "torso": {
+        "color": "#C89BF2",
+        "detail": "pajamas",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#C89BF2",
+        "length": "long"
+      },
+      "pants": "#C89BF2",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "tc_kid",
+      "name": "Classmate",
+      "role": "Study copy (private practice, never published): Teleportation Curse.",
+      "scale": 0.97,
+      "skin": "#E8B98A",
+      "hair": {
+        "style": "bob",
+        "color": "#3A2A1E"
+      },
+      "torso": {
+        "color": "#F2F2F2",
+        "detail": "jacket",
+        "accent": "#4A7FC0",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F2F2F2",
+        "length": "long"
+      },
+      "pants": "#2E3440",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
     }
   ],
   "extras": [

@@ -18,6 +18,7 @@ import blocky  # noqa: E402
 import sets  # noqa: E402
 import kit  # noqa: E402
 import sets_fixed  # noqa: E402
+import sets_study  # noqa: E402
 
 args = sys.argv[sys.argv.index("--") + 1:]
 timing_path = Path(args[0])
@@ -29,6 +30,7 @@ preview = "--preview" in args
 
 spec = json.loads(timing_path.read_text())
 cast = blocky.load_cast()
+blocky.FACE_STYLE = spec.get("face_style", "geo")
 out_dir = timing_path.parent / ("shots_preview" if preview else "shots")
 out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -244,6 +246,10 @@ def render_shot(i, shot):
         sets.bedroom(shot.get("time", "night"))
     elif shot["set"] in sets_fixed.SETS:
         sets_fixed.SETS[shot["set"]](shot.get("time", "day"), spec)
+    elif shot["set"] in sets_study.SETS:
+        sets_study.SETS[shot["set"]](shot.get("time", "day"), spec)
+    if shot.get("petals"):
+        sets_study.petals(n)
     # per-shot props: {"van": {...}} or {"kit": "...", "name": "...", "at": [x, y, z], "rot": deg, "scale": s}
     for o in shot.get("objects", []):
         if "van" in o:

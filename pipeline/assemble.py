@@ -12,6 +12,9 @@ from pathlib import Path
 
 import numpy as np
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from music import generate as generate_music  # noqa: E402
+
 SR = 24000
 FONT = "Arial Rounded MT Bold"
 FONT_FILE = "/System/Library/Fonts/Supplemental/Arial Rounded Bold.ttf"
@@ -57,16 +60,20 @@ Style: Title,{FONT},104,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,1,0,0,0,100,
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     ev = [f"Dialogue: 1,{ts(0.15)},{ts(2.8)},Title,,0,0,0,,{{\\fad(200,300)}}{esc(spec['title'])}"]
+    upper = spec.get("caption_style") == "upper"   # 2-4 words on two lines, upper-middle, green keyword
+    per = 4 if upper else 2
     words = [w for s in spec["shots"] for w in s["words"]]
     groups, cur = [], []
     for w in words:
         cur.append(w)
-        if len(cur) == 2 or w["text"][-1] in ".,?!:;":
+        if len(cur) == per or w["text"][-1] in ".,?!:;":
             groups.append(cur)
             cur = []
     if cur:
         groups.append(cur)
-    pop = "{\\pos(540,840)\\fscx70\\fscy70\\t(0,90,\\fscx110\\fscy110)\\t(90,170,\\fscx100\\fscy100)}"
+    y = 560 if upper else 840
+    pop = "{\\pos(540,%d)\\fscx70\\fscy70\\t(0,90,\\fscx110\\fscy110)\\t(90,170,\\fscx100\\fscy100)}" % y
+    key_tag, base_tag = ("{\\c&H4DD65C&\\fs96}", "{\\c&HFFFFFF&\\fs84}") if upper else ("{\\c&H3CC9FF&\\fs120}", "{\\c&HFFFFFF&\\fs104}")
     for gi, g in enumerate(groups):
         end = groups[gi + 1][0]["start"] if gi + 1 < len(groups) else g[-1]["end"] + 0.5
         end = min(end, g[-1]["end"] + 0.5)
@@ -75,8 +82,14 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         parts = []
         for k, w in enumerate(g):
             t = esc(w["text"])
-            parts.append("{\\c&H3CC9FF&\\fs120}" + t.upper() + "{\\c&HFFFFFF&\\fs104}" if k == key else t)
-        ev.append(f"Dialogue: 0,{ts(g[0]['start'])},{ts(end)},Cap,,0,0,0,,{pop}{' '.join(parts)}")
+            parts.append(key_tag + t.upper() + base_tag if k == key else t)
+        if upper and len(parts) > 2:                      # two lines: first half / second half
+            mid = len(parts) // 2
+            text_ = " ".join(parts[:mid]) + "\\N" + " ".join(parts[mid:])
+        else:
+            text_ = " ".join(parts)
+        lead = base_tag if upper else ""
+        ev.append(f"Dialogue: 0,{ts(g[0]['start'])},{ts(end)},Cap,,0,0,0,,{pop}{lead}{text_}")
     (d / "captions.ass").write_text(head + "\n".join(ev) + "\n")
 
 
@@ -138,7 +151,7 @@ def sfx_ding():
 
 
 def bed():
-    out = 0.55 * music(dur)
+    out = 0.8 * generate_music(dur, mood=spec.get("music", "night_walk"), sr=SR, seed=len(spec["id"]))
     def put(sig, at, gain):
         i = int(at * SR)
         seg = sig[: max(0, len(out) - i)]
@@ -176,8 +189,11 @@ def video():
         "-filter_complex",
         "[0:v]eq=saturation=1.12:contrast=1.04,colorbalance=rs=0.04:bs=-0.04:rh=0.03:bh=-0.03,"
         "vignette=angle=PI/6,ass=captions.ass,format=yuv420p[v];"
-        "[2:a]volume=0.3[b];[1:a][b]sidechaincompress=threshold=0.05:ratio=4:release=400[bd];"
-        "[1:a][bd]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[a]",
+        # voice and music are levelled separately (music ~13 dB under the voice), the music ducks
+        # while the narrator talks, then the mix is normalised for Instagram (-14 LUFS)
+        "[1:a]loudnorm=I=-16:TP=-2:LRA=11,asplit=2[v1][v2];[2:a]loudnorm=I=-26:TP=-8:LRA=11[m];"
+        "[m][v2]sidechaincompress=threshold=0.03:ratio=3:attack=20:release=600[md];"
+        "[v1][md]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[a]",
         "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "19", "-preset", "medium",
         "-c:a", "aac", "-b:a", "192k", "-t", f"{dur:.2f}", "-movflags", "+faststart", out.name, cwd=d)
     # cover: a frame from the "It takes memories" sign shot + title

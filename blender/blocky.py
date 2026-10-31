@@ -109,9 +109,64 @@ EXPRESSIONS = {
 EXPR_ALIASES = {"thinking": "confused"}
 
 
+FACE_STYLE = "geo"   # "decal" = drawn image faces from assets/faces (set per story by render_reel)
+FACES_DIR = Path(__file__).resolve().parent.parent / "assets" / "faces"
+_decal_mats = {}
+
+
+def _decal_mat(path):
+    if path in _decal_mats:
+        return _decal_mats[path]
+    m = bpy.data.materials.new(f"decal.{Path(path).stem}")
+    m.use_nodes = True
+    nt = m.node_tree
+    bsdf = nt.nodes["Principled BSDF"]
+    tex = nt.nodes.new("ShaderNodeTexImage")
+    tex.image = bpy.data.images.load(str(path), check_existing=True)
+    tex.interpolation = "Linear"
+    nt.links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
+    nt.links.new(tex.outputs["Alpha"], bsdf.inputs["Alpha"])
+    bsdf.inputs["Roughness"].default_value = 0.8
+    bsdf.inputs["Specular"].default_value = 0.1
+    m.blend_method = "CLIP"
+    m.alpha_threshold = 0.4
+    m.shadow_method = "NONE"
+    _decal_mats[path] = m
+    return m
+
+
+def _decal_plane(name, w, h, loc, parent, path):
+    hw, hh = w / 2, h / 2
+    me = bpy.data.meshes.new(name)
+    me.from_pydata([(-hw, 0, -hh), (hw, 0, -hh), (hw, 0, hh), (-hw, 0, hh)], [], [(0, 1, 2, 3)])
+    uv = me.uv_layers.new()
+    for i, co in enumerate(((0, 0), (1, 0), (1, 1), (0, 1))):
+        uv.data[i].uv = co
+    me.materials.append(_decal_mat(path))
+    ob = bpy.data.objects.new(name, me)
+    bpy.context.scene.collection.objects.link(ob)
+    ob.parent = parent
+    ob.location = loc
+    return ob
+
+
+def build_decal_face(c, neck, ex):
+    """Image face: '<id>.face.<ex>' group with a face layer and an eye strip ('...eyes', squashed to blink)."""
+    cid = c["id"]
+    name = ex if (FACES_DIR / f"{ex}_face.png").exists() else "neutral"
+    grp = empty(f"{cid}.face.{ex}", neck)
+    _decal_plane(f"{cid}.face.{ex}.layer", 1.28, 1.22, (0, FACE_Y - 0.012, 0.64), grp, FACES_DIR / f"{name}_face.png")
+    _decal_plane(f"{cid}.face.{ex}.eyes", 1.28, 0.46, (0, FACE_Y - 0.018, 0.69), grp, FACES_DIR / f"{name}_eyes.png")
+    if c["face"].get("mustache"):
+        box(f"{cid}.mustache", (0.46, 0.05, 0.1), (0, FACE_Y - 0.03, 0.5), c["face"]["mustache"], grp, bevel=0.03)
+    return grp
+
+
 def build_face(c, neck, ex=None):
     """Build one expression as a group (empty '<id>.face.<expr>') so shots can switch faces.
     Eyes sit under '<id>.face.<expr>.eyes' so they can blink (scale z)."""
+    if FACE_STYLE == "decal":
+        return build_decal_face(c, neck, ex or c["face"].get("expression", "neutral"))
     cid = c["id"]
     f = c["face"]
     ex = EXPR_ALIASES.get(ex or f.get("expression", "neutral"), ex or f.get("expression", "neutral"))
@@ -229,6 +284,30 @@ def build_hair(c, neck):
         box(f"{cid}.hair", (1.36, 0.18, 0.24), (0, -0.52, 1.12), col, neck, bevel=0.06)
         for s in (-1, 1):
             box(f"{cid}.hair", (0.2, 1.15, 1.05), (s * 0.69, 0.06, 0.74), col, neck, bevel=0.06)
+    elif style == "long":          # straight, past the shoulders, with bangs
+        top(0.3)
+        box(f"{cid}.hair", (1.42, 0.3, 2.1), (0, 0.5, 0.35), col, neck, bevel=0.08)       # back, down to the shoulders
+        box(f"{cid}.hair", (1.36, 0.2, 0.3), (0, -0.52, 1.1), col, neck, bevel=0.06)     # bangs
+        for s in (-1, 1):
+            box(f"{cid}.hair", (0.22, 1.2, 1.9), (s * 0.71, 0.06, 0.45), col, neck, bevel=0.07)
+    elif style == "curly":         # a cluster of curls
+        import random
+        rnd = random.Random(sum(map(ord, cid)))
+        for _ in range(26):
+            x, y, z = rnd.uniform(-0.62, 0.62), rnd.uniform(-0.45, 0.62), rnd.uniform(0.95, 1.45)
+            if y < -0.3 and z < 1.15:
+                continue
+            sz = rnd.uniform(0.3, 0.42)
+            box(f"{cid}.hair", (sz, sz, sz), (x, y, z), col, neck, bevel=0.12)
+        back(0.5)
+    elif style == "spiky":         # anime-style spikes on top
+        top(0.22)
+        back(0.7)
+        for x, y, ry, rx in ((-0.42, -0.2, 20, -15), (-0.1, -0.3, 5, -25), (0.25, -0.25, -12, -20), (0.5, 0.0, -25, -5),
+                             (-0.5, 0.3, 25, 10), (0.0, 0.25, 0, 15), (0.4, 0.4, -18, 18)):
+            box(f"{cid}.hair", (0.32, 0.32, 0.6), (x, y, 1.42), col, neck, bevel=0.05, rot=(rx, ry, 45))
+    elif style == "afro":
+        box(f"{cid}.hair", (1.9, 1.75, 1.15), (0, 0.15, 1.35), col, neck, bevel=0.45)
 
 
 def build_accessories(c, neck, chest):
@@ -249,6 +328,11 @@ def build_accessories(c, neck, chest):
             box(f"{cid}.cap", (1.4, 1.3, 0.4), (0, 0.02, 1.32), col, neck, bevel=0.12)
             box(f"{cid}.cap", (0.95, 0.65, 0.08), (0, 0.85, 1.2), col, neck, bevel=0.03)
             box(f"{cid}.cap", (0.16, 0.16, 0.08), (0, 0.02, 1.55), "#FFFFFF", neck, bevel=0.03)
+        elif t == "beard":
+            box(f"{cid}.beard", (1.2, 0.12, 0.24), (0, FACE_Y - 0.02, 0.13), col, neck, bevel=0.08)      # chin, below the mouth
+            for s in (-1, 1):
+                box(f"{cid}.beard", (0.2, 0.12, 0.5), (s * 0.55, FACE_Y - 0.02, 0.38), col, neck, bevel=0.06)  # jaw sides
+            box(f"{cid}.beard", (0.42, 0.1, 0.08), (0, FACE_Y - 0.04, 0.47), col, neck, bevel=0.03)  # moustache
         elif t == "fedora":
             box(f"{cid}.hat", (1.85, 1.75, 0.07), (0, 0.02, 1.24), col, neck, bevel=0.03)
             box(f"{cid}.hat", (1.3, 1.2, 0.55), (0, 0.02, 1.53), col, neck, bevel=0.1)
@@ -281,6 +365,18 @@ def build_torso(c, body):
     elif d == "sweater":
         box(f"{cid}.hem", (w + 0.02, 1.02, 0.2), (0, 0, 0.1), acc, body, bevel=0.04)
         box(f"{cid}.collar", (0.8, 1.04, 0.14), (0, 0, 1.95), acc, body, bevel=0.04)
+    elif d == "pajamas":           # dotted pajama top with piped collar
+        for i in range(12):
+            box(f"{cid}.dot", (0.14, 0.05, 0.14), (-0.7 + (i % 4) * 0.47 + (0.23 if (i // 4) % 2 else 0), fy - 0.01,
+                                                   0.35 + (i // 4) * 0.6), acc, body, bevel=0.03)
+        box(f"{cid}.collar", (0.9, 1.04, 0.16), (0, 0, 1.95), acc, body, bevel=0.04)
+        box(f"{cid}.placket", (0.08, 0.06, 1.9), (0, fy - 0.01, 1.0), acc, body, bevel=0.02)
+    elif d == "suit":              # blazer over white shirt and tie
+        box(f"{cid}.shirt", (0.6, 0.06, 2.0), (0, fy, 1.0), "#F4F4F4", body, bevel=0.03)
+        box(f"{cid}.tie", (0.2, 0.08, 1.2), (0, fy - 0.02, 1.25), acc, body, bevel=0.03)
+        box(f"{cid}.knot", (0.24, 0.09, 0.18), (0, fy - 0.03, 1.88), acc, body, bevel=0.04)
+        for s in (-1, 1):
+            box(f"{cid}.lapel", (0.4, 0.06, 0.95), (s * 0.36, fy - 0.01, 1.45), shade(col, 0.8), body, bevel=0.03, rot=(0, -10 * s, 0))
     elif d == "trench":
         box(f"{cid}.belt", (w + 0.04, 1.04, 0.18), (0, 0, 0.5), acc, body, bevel=0.04)
         box(f"{cid}.lapel", (0.5, 0.06, 0.9), (-0.25, fy, 1.5), shade(col, 0.85), body, bevel=0.03, rot=(0, -12, 0))
@@ -338,6 +434,7 @@ def build(c, loc=(0, 0, 0), rot_z=0.0, exprs=None):
 def reset_scene():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     _mats.clear()
+    _decal_mats.clear()
 
 
 def setup_render(width, height, samples=48, sky="#CFE9FF"):
