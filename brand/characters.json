@@ -1,0 +1,274 @@
+{
+  "_notes": "Blockmates cast. Colors are hex. Units: torso is 2 wide x 2 tall. 'scale' makes adults taller than kids.",
+  "characters": [
+    {
+      "id": "milo",
+      "name": "Milo",
+      "role": "Main character. 12, curious, says yes to every weird thing.",
+      "scale": 1.0,
+      "skin": "#E8B98A",
+      "hair": {
+        "style": "messy",
+        "color": "#5A3825"
+      },
+      "torso": {
+        "color": "#F07A2A",
+        "detail": "hoodie",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F07A2A",
+        "length": "long"
+      },
+      "pants": "#3B5BA5",
+      "shoes": "#F2F2F2",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "pip",
+      "name": "Pip",
+      "role": "Milo's best friend. Smartest kid in class, skeptical, notices the clue everyone misses.",
+      "scale": 1.0,
+      "skin": "#8D5A3B",
+      "hair": {
+        "style": "ponytail",
+        "color": "#1E1A1A",
+        "band": "#F2C230"
+      },
+      "torso": {
+        "color": "#7B4FD6",
+        "detail": "jacket",
+        "accent": "#F2C230",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#7B4FD6",
+        "length": "long"
+      },
+      "pants": "#3A3A48",
+      "shoes": "#B79CF0",
+      "face": {
+        "expression": "smirk"
+      },
+      "accessories": [
+        {
+          "type": "glasses",
+          "color": "#151515"
+        }
+      ]
+    },
+    {
+      "id": "benny",
+      "name": "Benny",
+      "role": "The big-hearted friend. Always hungry, always scared, always comes back for you.",
+      "scale": 1.0,
+      "skin": "#F3C9A8",
+      "hair": {
+        "style": "buzz",
+        "color": "#C8642E"
+      },
+      "torso": {
+        "color": "#7CC444",
+        "detail": "tee_stripe",
+        "accent": "#FFFFFF",
+        "width": 2.4
+      },
+      "sleeves": {
+        "color": "#7CC444",
+        "length": "short"
+      },
+      "pants": "#8A6A4A",
+      "shoes": "#F08A2A",
+      "face": {
+        "expression": "grin"
+      },
+      "accessories": [
+        {
+          "type": "cap_back",
+          "color": "#D63A3A"
+        }
+      ]
+    },
+    {
+      "id": "graves",
+      "name": "Ms. Graves",
+      "role": "The teacher. Strict, never blinks, knows more than she says.",
+      "scale": 1.12,
+      "skin": "#D9B38C",
+      "hair": {
+        "style": "bun",
+        "color": "#9A9A9A"
+      },
+      "torso": {
+        "color": "#2E8B87",
+        "detail": "cardigan",
+        "accent": "#F4F1E8",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#2E8B87",
+        "length": "long"
+      },
+      "pants": "#2B2B35",
+      "shoes": "#1A1A1A",
+      "face": {
+        "expression": "stern"
+      },
+      "accessories": [
+        {
+          "type": "glasses",
+          "color": "#B3202A"
+        }
+      ]
+    },
+    {
+      "id": "mom",
+      "name": "Mom",
+      "role": "Milo's mom. Warm, busy, and somehow never surprised by anything.",
+      "scale": 1.1,
+      "skin": "#E8B98A",
+      "hair": {
+        "style": "bob",
+        "color": "#6B4430"
+      },
+      "torso": {
+        "color": "#F2C230",
+        "detail": "sweater",
+        "accent": "#E0A800",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F2C230",
+        "length": "long"
+      },
+      "pants": "#4A6FB8",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "bramble",
+      "name": "Mr. Bramble",
+      "role": "The neighbor nobody has ever seen arrive. Helpful. Too helpful.",
+      "scale": 1.15,
+      "skin": "#E6C3A1",
+      "hair": {
+        "style": "buzz",
+        "color": "#3A2E28"
+      },
+      "torso": {
+        "color": "#B79A6B",
+        "detail": "trench",
+        "accent": "#7A6440",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#B79A6B",
+        "length": "long"
+      },
+      "pants": "#3A3A3A",
+      "shoes": "#2A1E18",
+      "face": {
+        "expression": "neutral",
+        "mustache": "#3A2E28"
+      },
+      "accessories": [
+        {
+          "type": "fedora",
+          "color": "#2E2A28",
+          "band": "#7A2A2A"
+        }
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "scale": 0.97,
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": [],
+      "id": "kid1",
+      "name": "Student (Jo)",
+      "role": "background student",
+      "skin": "#C68B5E",
+      "hair": {
+        "style": "bob",
+        "color": "#2A1C14"
+      },
+      "torso": {
+        "color": "#E2526B",
+        "detail": "sweater",
+        "accent": "#B83A50",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#E2526B",
+        "length": "long"
+      },
+      "pants": "#3A3A48",
+      "shoes": "#FFFFFF"
+    },
+    {
+      "scale": 0.97,
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": [],
+      "id": "kid2",
+      "name": "Student (Rafi)",
+      "role": "background student",
+      "skin": "#F0C8A0",
+      "hair": {
+        "style": "messy",
+        "color": "#E0B040"
+      },
+      "torso": {
+        "color": "#3FA7D6",
+        "detail": "hoodie",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#3FA7D6",
+        "length": "long"
+      },
+      "pants": "#2F2F2F",
+      "shoes": "#E2526B"
+    },
+    {
+      "scale": 0.97,
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": [],
+      "id": "kid3",
+      "name": "Student (Ivy)",
+      "role": "background student",
+      "skin": "#6B4430",
+      "hair": {
+        "style": "ponytail",
+        "color": "#140E0C",
+        "band": "#3FD6A0"
+      },
+      "torso": {
+        "color": "#F5F5F5",
+        "detail": "tee_stripe",
+        "accent": "#3FD6A0",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F5F5F5",
+        "length": "short"
+      },
+      "pants": "#5A4A8A",
+      "shoes": "#3FD6A0"
+    }
+  ]
+}

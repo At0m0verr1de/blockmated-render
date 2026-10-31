@@ -1,0 +1,890 @@
+{
+ "id": "style_test",
+ "title": "The Memory Machine",
+ "caption": "The Memory Machine 🥤 An animated story about a vending machine that takes memories instead of coins. Would you press RETURN? #animatedstory #storytime #blockmated",
+ "voice": {
+  "name": "am_michael",
+  "pitch_semitones": 8,
+  "tempo": 1.38,
+  "speed": 1.3
+ },
+ "labels": [
+  [
+   "PIP\nTuesday",
+   "#7B4FD6"
+  ],
+  [
+   "GRAVES\n1986",
+   "#9A9A9A"
+  ]
+ ],
+ "cams": {
+  "wide": {
+   "pos": [
+    0,
+    -34,
+    5.5
+   ],
+   "look": [
+    0,
+    3,
+    5.2
+   ],
+   "lens": 28
+  },
+  "hall2": {
+   "pos": [
+    2,
+    -15,
+    5.2
+   ],
+   "look": [
+    0,
+    1,
+    4.2
+   ],
+   "lens": 35
+  },
+  "machine34": {
+   "pos": [
+    7,
+    -9,
+    6
+   ],
+   "look": [
+    0,
+    3,
+    4.8
+   ],
+   "lens": 35
+  },
+  "sign": {
+   "pos": [
+    1.2,
+    -4.5,
+    7.4
+   ],
+   "look": [
+    0,
+    3.3,
+    7.6
+   ],
+   "lens": 35
+  },
+  "tray": {
+   "pos": [
+    0.6,
+    -2.6,
+    2.4
+   ],
+   "look": [
+    -0.65,
+    3.2,
+    1.1
+   ],
+   "lens": 35
+  },
+  "panel": {
+   "pos": [
+    2.6,
+    -0.6,
+    3.6
+   ],
+   "look": [
+    1.6,
+    3.3,
+    3.1
+   ],
+   "lens": 50
+  },
+  "cans": {
+   "pos": [
+    -0.7,
+    -3.4,
+    3.1
+   ],
+   "look": [
+    -0.7,
+    3.3,
+    2.6
+   ],
+   "lens": 40
+  },
+  "lean_side": {
+   "pos": [
+    -12,
+    -3.5,
+    5.4
+   ],
+   "look": [
+    -0.6,
+    2.2,
+    4.6
+   ],
+   "lens": 35
+  },
+  "face_glass": {
+   "pos": [
+    7.5,
+    -1.5,
+    6.0
+   ],
+   "look": [
+    -0.6,
+    2.6,
+    5.0
+   ],
+   "lens": 42
+  },
+  "class_front": {
+   "pos": [
+    0,
+    15,
+    7.2
+   ],
+   "look": [
+    0,
+    0,
+    3.8
+   ],
+   "lens": 28
+  },
+  "class_two": {
+   "pos": [
+    0,
+    12,
+    5.8
+   ],
+   "look": [
+    0,
+    0.1,
+    4.2
+   ],
+   "lens": 35
+  },
+  "bed": {
+   "pos": [
+    3,
+    -6,
+    5.2
+   ],
+   "look": [
+    -6.6,
+    1.0,
+    4.2
+   ],
+   "lens": 35
+  },
+  "bed_close": {
+   "pos": [
+    -1.5,
+    -1.5,
+    5.0
+   ],
+   "look": [
+    -6.6,
+    1.0,
+    4.9
+   ],
+   "lens": 50
+  }
+ },
+ "shots": [
+  {
+   "text": "At my school, there's a vending machine that doesn't take coins.",
+   "set": "hallway",
+   "time": "day",
+   "cam": "wide",
+   "actors": [
+    {
+     "id": "milo",
+     "at": [
+      -12,
+      -2
+     ],
+     "expr": "smile",
+     "do": [
+      [
+       "walk",
+       {
+        "to": [
+         -4,
+         0
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "kid1",
+     "at": [
+      9,
+      2
+     ],
+     "face": -30,
+     "expr": "smile",
+     "do": [
+      [
+       "idle"
+      ]
+     ]
+    },
+    {
+     "id": "kid2",
+     "at": [
+      12,
+      1
+     ],
+     "face": 40,
+     "expr": "grin",
+     "do": [
+      [
+       "idle"
+      ]
+     ]
+    }
+   ],
+   "push": 0.35,
+   "start": 0.0,
+   "speech_end": 2.9347826086956523,
+   "words": [
+    {
+     "text": "At",
+     "start": 0.4710144927536232,
+     "end": 0.552536231884058
+    },
+    {
+     "text": "my",
+     "start": 0.552536231884058,
+     "end": 0.6612318840579711
+    },
+    {
+     "text": "school,",
+     "start": 0.6612318840579711,
+     "end": 1.068840579710145
+    },
+    {
+     "text": "there's",
+     "start": 1.1231884057971013,
+     "end": 1.2590579710144927
+    },
+    {
+     "text": "a",
+     "start": 1.2590579710144927,
+     "end": 1.3134057971014494
+    },
+    {
+     "text": "vending",
+     "start": 1.3134057971014494,
+     "end": 1.585144927536232
+    },
+    {
+     "text": "machine",
+     "start": 1.585144927536232,
+     "end": 1.8025362318840579
+    },
+    {
+     "text": "that",
+     "start": 1.8025362318840579,
+     "end": 1.884057971014493
+    },
+    {
+     "text": "doesn't",
+     "start": 1.884057971014493,
+     "end": 2.0833333333333335
+    },
+    {
+     "text": "take",
+     "start": 2.0833333333333335,
+     "end": 2.2644927536231885
+    },
+    {
+     "text": "coins.",
+     "start": 2.2644927536231885,
+     "end": 2.7536231884057973
+    }
+   ],
+   "end": 2.9927536231884058
+  },
+  {
+   "text": "It takes memories.",
+   "set": "hallway",
+   "time": "day",
+   "cam": "sign",
+   "push": 0.15,
+   "machine": {
+    "pulse": true
+   },
+   "start": 2.9927536231884058,
+   "speech_end": 4.188405797101449,
+   "words": [
+    {
+     "text": "It",
+     "start": 3.173913043478261,
+     "end": 3.2644927536231885
+    },
+    {
+     "text": "takes",
+     "start": 3.2644927536231885,
+     "end": 3.4818840579710146
+    },
+    {
+     "text": "memories.",
+     "start": 3.4818840579710146,
+     "end": 4.02536231884058
+    }
+   ],
+   "end": 4.246376811594203
+  },
+  {
+   "text": "You press your forehead to the glass, pick a memory you don't need,",
+   "set": "hallway",
+   "time": "day",
+   "cam": "lean_side",
+   "actors": [
+    {
+     "id": "kid2",
+     "at": [
+      -0.6,
+      1.8
+     ],
+     "face": 180,
+     "expr": "closed",
+     "do": [
+      [
+       "lean_in"
+      ]
+     ]
+    }
+   ],
+   "push": 0.1,
+   "machine": {
+    "glow_up": true
+   },
+   "start": 4.246376811594203,
+   "speech_end": 6.945652173913043,
+   "words": [
+    {
+     "text": "You",
+     "start": 4.445652173913044,
+     "end": 4.518115942028985
+    },
+    {
+     "text": "press",
+     "start": 4.518115942028985,
+     "end": 4.708333333333333
+    },
+    {
+     "text": "your",
+     "start": 4.708333333333333,
+     "end": 4.798913043478261
+    },
+    {
+     "text": "forehead",
+     "start": 4.798913043478261,
+     "end": 5.0434782608695645
+    },
+    {
+     "text": "to",
+     "start": 5.0434782608695645,
+     "end": 5.106884057971015
+    },
+    {
+     "text": "the",
+     "start": 5.106884057971015,
+     "end": 5.170289855072464
+    },
+    {
+     "text": "glass,",
+     "start": 5.170289855072464,
+     "end": 5.5688405797101455
+    },
+    {
+     "text": "pick",
+     "start": 5.641304347826087,
+     "end": 5.759057971014493
+    },
+    {
+     "text": "a",
+     "start": 5.759057971014493,
+     "end": 5.831521739130435
+    },
+    {
+     "text": "memory",
+     "start": 5.831521739130435,
+     "end": 6.130434782608695
+    },
+    {
+     "text": "you",
+     "start": 6.130434782608695,
+     "end": 6.193840579710145
+    },
+    {
+     "text": "don't",
+     "start": 6.193840579710145,
+     "end": 6.347826086956522
+    },
+    {
+     "text": "need,",
+     "start": 6.347826086956522,
+     "end": 6.7644927536231885
+    }
+   ],
+   "end": 7.003623188405797
+  },
+  {
+   "text": "and a cold soda drops out.",
+   "set": "hallway",
+   "time": "day",
+   "cam": "tray",
+   "machine": {
+    "drop": 0.3
+   },
+   "start": 7.003623188405797,
+   "speech_end": 8.507246376811594,
+   "words": [
+    {
+     "text": "and",
+     "start": 7.202898550724638,
+     "end": 7.266304347826088
+    },
+    {
+     "text": "a",
+     "start": 7.266304347826088,
+     "end": 7.311594202898551
+    },
+    {
+     "text": "cold",
+     "start": 7.311594202898551,
+     "end": 7.565217391304348
+    },
+    {
+     "text": "soda",
+     "start": 7.565217391304348,
+     "end": 7.782608695652173
+    },
+    {
+     "text": "drops",
+     "start": 7.782608695652173,
+     "end": 8.018115942028986
+    },
+    {
+     "text": "out.",
+     "start": 8.018115942028986,
+     "end": 8.344202898550725
+    }
+   ],
+   "end": 8.565217391304348
+  },
+  {
+   "text": "Your memory stays behind the glass, in a can with your name and the date on it.",
+   "set": "hallway",
+   "time": "day",
+   "cam": "cans",
+   "push": 0.25,
+   "start": 8.565217391304348,
+   "speech_end": 11.862318840579709,
+   "words": [
+    {
+     "text": "Your",
+     "start": 8.764492753623188,
+     "end": 8.855072463768115
+    },
+    {
+     "text": "memory",
+     "start": 8.855072463768115,
+     "end": 9.126811594202898
+    },
+    {
+     "text": "stays",
+     "start": 9.126811594202898,
+     "end": 9.398550724637682
+    },
+    {
+     "text": "behind",
+     "start": 9.398550724637682,
+     "end": 9.66123188405797
+    },
+    {
+     "text": "the",
+     "start": 9.66123188405797,
+     "end": 9.72463768115942
+    },
+    {
+     "text": "glass,",
+     "start": 9.72463768115942,
+     "end": 10.177536231884057
+    },
+    {
+     "text": "in",
+     "start": 10.25,
+     "end": 10.31340579710145
+    },
+    {
+     "text": "a",
+     "start": 10.31340579710145,
+     "end": 10.358695652173912
+    },
+    {
+     "text": "can",
+     "start": 10.358695652173912,
+     "end": 10.567028985507246
+    },
+    {
+     "text": "with",
+     "start": 10.567028985507246,
+     "end": 10.639492753623188
+    },
+    {
+     "text": "your",
+     "start": 10.639492753623188,
+     "end": 10.721014492753623
+    },
+    {
+     "text": "name",
+     "start": 10.721014492753623,
+     "end": 10.97463768115942
+    },
+    {
+     "text": "and",
+     "start": 10.97463768115942,
+     "end": 11.056159420289855
+    },
+    {
+     "text": "the",
+     "start": 11.056159420289855,
+     "end": 11.119565217391305
+    },
+    {
+     "text": "date",
+     "start": 11.119565217391305,
+     "end": 11.291666666666668
+    },
+    {
+     "text": "on",
+     "start": 11.291666666666668,
+     "end": 11.409420289855072
+    },
+    {
+     "text": "it.",
+     "start": 11.409420289855072,
+     "end": 11.699275362318842
+    }
+   ],
+   "end": 11.920289855072461
+  },
+  {
+   "text": "Kids trade the boring stuff. What they ate for breakfast. Last week's spelling test.",
+   "set": "hallway",
+   "time": "day",
+   "cam": "hall2",
+   "actors": [
+    {
+     "id": "kid1",
+     "at": [
+      -3,
+      0
+     ],
+     "face": -20,
+     "expr": "happy",
+     "holding": "can",
+     "do": [
+      [
+       "drink"
+      ]
+     ]
+    },
+    {
+     "id": "kid3",
+     "at": [
+      2.5,
+      0.5
+     ],
+     "face": 20,
+     "expr": "smile",
+     "holding": "can",
+     "do": [
+      [
+       "hold"
+      ]
+     ]
+    },
+    {
+     "id": "kid2",
+     "at": [
+      -0.6,
+      1.8
+     ],
+     "face": 180,
+     "expr": "closed",
+     "do": [
+      [
+       "lean_in"
+      ]
+     ]
+    }
+   ],
+   "push": 0.12,
+   "start": 11.920289855072461,
+   "speech_end": 15.452898550724635,
+   "words": [
+    {
+     "text": "Kids",
+     "start": 12.101449275362317,
+     "end": 12.300724637681157
+    },
+    {
+     "text": "trade",
+     "start": 12.300724637681157,
+     "end": 12.47282608695652
+    },
+    {
+     "text": "the",
+     "start": 12.47282608695652,
+     "end": 12.53623188405797
+    },
+    {
+     "text": "boring",
+     "start": 12.53623188405797,
+     "end": 12.771739130434781
+    },
+    {
+     "text": "stuff.",
+     "start": 12.771739130434781,
+     "end": 13.115942028985504
+    },
+    {
+     "text": "What",
+     "start": 13.170289855072463,
+     "end": 13.269927536231883
+    },
+    {
+     "text": "they",
+     "start": 13.269927536231883,
+     "end": 13.369565217391303
+    },
+    {
+     "text": "ate",
+     "start": 13.369565217391303,
+     "end": 13.496376811594201
+    },
+    {
+     "text": "for",
+     "start": 13.496376811594201,
+     "end": 13.586956521739129
+    },
+    {
+     "text": "breakfast.",
+     "start": 13.586956521739129,
+     "end": 14.039855072463766
+    },
+    {
+     "text": "Last",
+     "start": 14.121376811594201,
+     "end": 14.38405797101449
+    },
+    {
+     "text": "week's",
+     "start": 14.38405797101449,
+     "end": 14.565217391304344
+    },
+    {
+     "text": "spelling",
+     "start": 14.565217391304344,
+     "end": 14.855072463768115
+    },
+    {
+     "text": "test.",
+     "start": 14.855072463768115,
+     "end": 15.271739130434781
+    }
+   ],
+   "end": 15.510869565217389
+  },
+  {
+   "text": "My friend Benny traded every vegetable he's ever eaten.",
+   "set": "hallway",
+   "time": "day",
+   "cam": "lean_side",
+   "actors": [
+    {
+     "id": "benny",
+     "at": [
+      -0.6,
+      1.8
+     ],
+     "face": 180,
+     "expr": "closed",
+     "do": [
+      [
+       "lean_in"
+      ]
+     ]
+    }
+   ],
+   "machine": {
+    "glow_up": true
+   },
+   "start": 15.510869565217389,
+   "speech_end": 18.028985507246375,
+   "words": [
+    {
+     "text": "My",
+     "start": 15.710144927536227,
+     "end": 15.818840579710143
+    },
+    {
+     "text": "friend",
+     "start": 15.818840579710143,
+     "end": 15.999999999999998
+    },
+    {
+     "text": "Benny",
+     "start": 15.999999999999998,
+     "end": 16.181159420289852
+    },
+    {
+     "text": "traded",
+     "start": 16.181159420289852,
+     "end": 16.53442028985507
+    },
+    {
+     "text": "every",
+     "start": 16.53442028985507,
+     "end": 16.76086956521739
+    },
+    {
+     "text": "vegetable",
+     "start": 16.76086956521739,
+     "end": 17.105072463768114
+    },
+    {
+     "text": "he's",
+     "start": 17.105072463768114,
+     "end": 17.249999999999996
+    },
+    {
+     "text": "ever",
+     "start": 17.249999999999996,
+     "end": 17.46739130434782
+    },
+    {
+     "text": "eaten.",
+     "start": 17.46739130434782,
+     "end": 17.865942028985504
+    }
+   ],
+   "end": 18.08695652173913
+  },
+  {
+   "text": "Now he swears he's never seen a carrot.",
+   "set": "hallway",
+   "time": "day",
+   "cam": {
+    "pos": [
+     -0.5,
+     -13,
+     5.6
+    ],
+    "look": [
+     -1.2,
+     -1,
+     4.6
+    ],
+    "lens": 35
+   },
+   "actors": [
+    {
+     "id": "benny",
+     "at": [
+      -1.2,
+      -1
+     ],
+     "face": 15,
+     "expr": "confused",
+     "holding": "carrot",
+     "do": [
+      [
+       "idle"
+      ]
+     ]
+    },
+    {
+     "id": "pip",
+     "at": [
+      2.4,
+      -0.5
+     ],
+     "face": -40,
+     "expr": "smirk",
+     "do": [
+      [
+       "cross_arms"
+      ]
+     ]
+    }
+   ],
+   "push": 0.2,
+   "start": 18.08695652173913,
+   "speech_end": 19.89855072463768,
+   "words": [
+    {
+     "text": "Now",
+     "start": 18.286231884057965,
+     "end": 18.403985507246375
+    },
+    {
+     "text": "he",
+     "start": 18.403985507246375,
+     "end": 18.4945652173913
+    },
+    {
+     "text": "swears",
+     "start": 18.4945652173913,
+     "end": 18.811594202898547
+    },
+    {
+     "text": "he's",
+     "start": 18.811594202898547,
+     "end": 18.95652173913043
+    },
+    {
+     "text": "never",
+     "start": 18.95652173913043,
+     "end": 19.1195652173913
+    },
+    {
+     "text": "seen",
+     "start": 19.1195652173913,
+     "end": 19.273550724637676
+    },
+    {
+     "text": "a",
+     "start": 19.273550724637676,
+     "end": 19.31884057971014
+    },
+    {
+     "text": "carrot.",
+     "start": 19.31884057971014,
+     "end": 19.73550724637681
+    }
+   ],
+   "end": 19.95652173913043
+  }
+ ],
+ "tiktok_caption": "A vending machine that takes memories instead of coins 🥤 What would you trade? #animatedstory #storytime #animation #blockmated",
+ "duration": 19.95652173913043,
+ "youtube": {
+  "title": "The Vending Machine That Takes Memories 🥤 | Animated Story",
+  "description": "At my school, there's a vending machine that doesn't take coins. It takes memories. When my best friend trades the day we met, I have until Friday midnight to get it back.\n\nAn original animated story by Blockmated. New stories every week.\n\n#animatedstory #storytime #shorts",
+  "tags": [
+   "animated story",
+   "story time",
+   "vending machine",
+   "memories",
+   "animation",
+   "blockmated",
+   "short story"
+  ]
+ }
+}
