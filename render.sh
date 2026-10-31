@@ -66,7 +66,7 @@ if p.exists():
 f_done = sum(frames[i] for i in done) + cur
 pct = f_done / sum(frames)
 el = time.time() - start
-eta = f" · ~{int(el / pct * (1 - pct) / 60) + 1} min left" if pct > 0.03 else ""
+eta = f" · ~{int(el / pct * (1 - pct) / 60) + 1} min left" if 0.03 < pct < 1 else ""
 print(f"\r  shots {len(done)}/{len(t)} · {pct:5.1%} · {int(el // 60)}m{int(el % 60):02d}s{eta}      ", end="", flush=True)
 PY
   sleep 5
