@@ -51,9 +51,13 @@ DUR=$(.venv/bin/python -c "import json;print(round(json.load(open('$OUT/timing.j
 # Re-render any shot whose settings changed since it was rendered (fingerprint per shot).
 SIG='import hashlib, json, sys; from pathlib import Path
 out = Path(sys.argv[1]); mode = sys.argv[2]
-shots = json.loads((out / "timing.json").read_text())["shots"]
+spec = json.loads((out / "timing.json").read_text())
+shots = spec["shots"]
+# reel-wide look settings and the render code itself also invalidate every shot
+look = {k: v for k, v in spec.items() if k != "shots" and k not in ("duration", "caption", "title")}
+code = hashlib.sha1(b"".join(p.read_bytes() for p in sorted(Path("blender").glob("*.py")) + sorted(Path("assets/faces").glob("*.png")))).hexdigest()
 for i, s in enumerate(shots):
-    h = hashlib.sha1(json.dumps(s, sort_keys=True).encode()).hexdigest()
+    h = hashlib.sha1(json.dumps([s, look, code], sort_keys=True).encode()).hexdigest()
     mp4, sig = out / "shots" / f"{i:02d}.mp4", out / "shots" / f"{i:02d}.sig"
     if mode == "check" and mp4.exists() and (not sig.exists() or sig.read_text() != h):
         mp4.unlink(); print(f"  shot {i + 1} changed, will re-render")
