@@ -609,17 +609,17 @@
       "scale": 1.0,
       "skin": "#F2C9A0",
       "hair": {
-        "style": "spiky",
+        "style": "swoop",
         "color": "#2E9E3E"
       },
       "torso": {
         "color": "#1E1E1E",
-        "detail": "tee_stripe",
+        "detail": "stripes",
         "accent": "#2FA84A",
         "width": 2.0
       },
       "sleeves": {
-        "color": "#2FA84A",
+        "color": "#1E1E1E",
         "length": "long"
       },
       "pants": "#1E1E1E",
@@ -636,7 +636,7 @@
       "scale": 1.0,
       "skin": "#F2C9A0",
       "hair": {
-        "style": "spiky",
+        "style": "swoop",
         "color": "#2E9E3E"
       },
       "torso": {
@@ -663,7 +663,7 @@
       "scale": 1.0,
       "skin": "#F2C9A0",
       "hair": {
-        "style": "long",
+        "style": "layered",
         "color": "#141010"
       },
       "torso": {
@@ -785,7 +785,7 @@
       "scale": 0.97,
       "skin": "#F2C9A0",
       "hair": {
-        "style": "long",
+        "style": "layered",
         "color": "#F49AC9"
       },
       "torso": {
@@ -812,7 +812,7 @@
       "scale": 0.97,
       "skin": "#F2C9A0",
       "hair": {
-        "style": "long",
+        "style": "layered",
         "color": "#F2D16B"
       },
       "torso": {

@@ -224,7 +224,7 @@ def sit(cid, n, seat_top):
     root = obj(cid)
     sc = root.scale.z
     body = obj(cid, "body")
-    body.location.z = (seat_top + 0.5) / sc
+    body.location.z = (seat_top + root.get("leg_w", 0.98) / 2) / sc
     for side in ("L", "R"):
         key_rot(obj(cid, f"leg.{side}"), 1, -90)
 

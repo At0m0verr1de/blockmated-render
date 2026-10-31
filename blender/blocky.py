@@ -111,6 +111,14 @@ EXPR_ALIASES = {"thinking": "confused"}
 
 FACE_STYLE = "geo"   # "decal" = drawn image faces from assets/faces (set per story by render_reel)
 FACES_DIR = Path(__file__).resolve().parent.parent / "assets" / "faces"
+
+# Body proportions. "classic" = the original chunky 2-2-1 blockmate; "slim" = narrower torso, longer legs and
+# arms, slightly smaller head (closer to the reference style). Set per story by render_reel (spec "body").
+BODY_STYLE = "classic"
+BODIES = {
+    "classic": dict(leg=2.04, leg_w=0.98, leg_x=0.5, torso_h=2.0, torso_d=1.0, width_k=1.0, arm=2.0, arm_w=0.98, head=1.0),
+    "slim": dict(leg=2.9, leg_w=0.74, leg_x=0.38, torso_h=2.15, torso_d=0.8, width_k=0.76, arm=2.45, arm_w=0.68, head=0.95),
+}
 _decal_mats = {}
 
 
@@ -306,6 +314,23 @@ def build_hair(c, neck):
         for x, y, ry, rx in ((-0.42, -0.2, 20, -15), (-0.1, -0.3, 5, -25), (0.25, -0.25, -12, -20), (0.5, 0.0, -25, -5),
                              (-0.5, 0.3, 25, 10), (0.0, 0.25, 0, 15), (0.4, 0.4, -18, 18)):
             box(f"{cid}.hair", (0.32, 0.32, 0.6), (x, y, 1.42), col, neck, bevel=0.05, rot=(rx, ry, 45))
+    elif style == "layered":       # long hair in stepped layers with a centre part and face-framing strands
+        top(0.3)
+        for s_ in (-1, 1):
+            box(f"{cid}.hair", (0.62, 1.3, 0.2), (s_ * 0.34, 0.02, 1.3), col, neck, bevel=0.07, rot=(0, -6 * s_, 0))
+            box(f"{cid}.hair", (0.24, 0.5, 1.9), (s_ * 0.6, -0.42, 0.4), col, neck, bevel=0.07)        # strands by the face
+            box(f"{cid}.hair", (0.26, 0.9, 2.2), (s_ * 0.72, 0.2, 0.3), col, neck, bevel=0.07)
+        for k, (wid, z, hgt) in enumerate(((1.46, 0.6, 1.6), (1.36, -0.5, 1.0), (1.1, -1.25, 0.7))):
+            box(f"{cid}.hair", (wid, 0.32 - 0.04 * k, hgt), (0, 0.5 + 0.06 * k, z), col, neck, bevel=0.1)
+    elif style == "swoop":         # boy's side-swept fringe with a few spikes
+        top(0.3)
+        back(0.62)
+        box(f"{cid}.hair", (1.0, 0.3, 0.4), (-0.18, -0.5, 1.08), col, neck, bevel=0.08, rot=(0, -12, 0))
+        box(f"{cid}.hair", (0.4, 0.3, 0.5), (0.48, -0.48, 1.12), col, neck, bevel=0.08, rot=(0, 18, 0))
+        for x, y, ry, rx in ((-0.4, 0.0, 22, -10), (-0.05, -0.15, 0, -22), (0.35, 0.05, -20, -10), (0.0, 0.35, 0, 18)):
+            box(f"{cid}.hair", (0.36, 0.36, 0.5), (x, y, 1.4), col, neck, bevel=0.06, rot=(rx, ry, 45))
+        for s_ in (-1, 1):
+            box(f"{cid}.hair", (0.18, 1.0, 0.5), (s_ * 0.66, 0.1, 1.0), col, neck, bevel=0.05)
     elif style == "afro":
         box(f"{cid}.hair", (1.9, 1.75, 1.15), (0, 0.15, 1.35), col, neck, bevel=0.45)
 
@@ -341,9 +366,9 @@ def build_accessories(c, neck, chest):
 
 # ---------------------------------------------------------------- torso detail
 
-def build_torso(c, body):
+def build_torso(c, body, width_k=1.0):
     t, cid = c["torso"], c["id"]
-    w, col, acc = t.get("width", 2.0), t["color"], t.get("accent", "#FFFFFF")
+    w, col, acc = t.get("width", 2.0) * width_k, t["color"], t.get("accent", "#FFFFFF")
     box(f"{cid}.torso", (w, 1.0, 2.0), (0, 0, 1.0), col, body, bevel=0.08)
     fy = -0.51
     d = t.get("detail")
@@ -358,6 +383,9 @@ def build_torso(c, body):
         box(f"{cid}.collar", (w + 0.06, 1.06, 0.18), (0, 0, 1.95), shade(col, 0.8), body, bevel=0.05)
     elif d == "tee_stripe":
         box(f"{cid}.stripe", (w + 0.02, 1.02, 0.3), (0, 0, 1.2), acc, body, bevel=0.04)
+    elif d == "stripes":           # rugby/striped tee: bands all the way round
+        for z in (0.25, 0.75, 1.25, 1.75):
+            box(f"{cid}.stripe", (w + 0.02, 1.02, 0.24), (0, 0, z), acc, body, bevel=0.03)
     elif d == "cardigan":
         box(f"{cid}.blouse", (0.6, 0.06, 2.0), (0, fy, 1.0), acc, body, bevel=0.03)
         for z in (0.4, 0.85, 1.3):
@@ -395,30 +423,43 @@ def shade(hex_color, k):
 
 def build(c, loc=(0, 0, 0), rot_z=0.0, exprs=None):
     cid = c["id"]
+    B = BODIES[BODY_STYLE]
     root = empty(cid, loc=loc)
     root.rotation_euler.z = math.radians(rot_z)
     root.scale = (c.get("scale", 1.0),) * 3
     root["blockmate"] = cid
+    root["leg_w"] = B["leg_w"]
 
-    body = empty(f"{cid}.body", root, (0, 0, 2.0))
-    w = build_torso(c, body)
+    body = empty(f"{cid}.body", root, (0, 0, B["leg"]))
+    torso = empty(f"{cid}.torso_grp", body)
+    torso.scale = (1.0, B["torso_d"], B["torso_h"] / 2.0)
+    w = build_torso(c, torso, B["width_k"])
+    sl = c["sleeves"]
+    stripes = c["torso"].get("detail") == "stripes" and sl["length"] == "long"
 
     for side, s in (("L", 1), ("R", -1)):
-        leg = empty(f"{cid}.leg.{side}", body, (s * 0.5, 0, 0))
-        box(f"{cid}.pants", (0.98, 0.98, 1.68), (0, 0, -0.84), c["pants"], leg, bevel=0.06)
-        box(f"{cid}.shoe", (1.02, 1.12, 0.36), (0, -0.05, -1.82), c["shoes"], leg, bevel=0.08)
+        leg = empty(f"{cid}.leg.{side}", body, (s * B["leg_x"], 0, 0))
+        lw, pants_len = B["leg_w"], B["leg"] - 0.36
+        box(f"{cid}.pants", (lw, lw, pants_len), (0, 0, -pants_len / 2), c["pants"], leg, bevel=0.06)
+        box(f"{cid}.shoe", (lw + 0.04, lw + 0.14, 0.36), (0, -0.05, -B["leg"] + 0.18), c["shoes"], leg, bevel=0.08)
+        if BODY_STYLE == "slim":   # sole + lace strip read as a real sneaker
+            box(f"{cid}.sole", (lw + 0.06, lw + 0.16, 0.1), (0, -0.05, -B["leg"] + 0.05), c.get("soles", "#F2F2F2"), leg, bevel=0.03)
 
-        arm = empty(f"{cid}.arm.{side}", body, (s * (w / 2 + 0.5), 0, 1.8))
-        sl = c["sleeves"]
-        sleeve_len = 1.55 if sl["length"] == "long" else 0.7
-        box(f"{cid}.sleeve", (0.98, 0.98, sleeve_len), (0, 0, 0.2 - sleeve_len / 2), sl["color"], arm, bevel=0.06)
-        skin_len = 2.0 - sleeve_len
-        box(f"{cid}.skin", (0.94, 0.94, skin_len), (0, 0, 0.2 - sleeve_len - skin_len / 2 + 0.02), c["skin"], arm,
+        arm = empty(f"{cid}.arm.{side}", body, (s * (w / 2 + B["arm_w"] / 2 + 0.02), 0, B["torso_h"] - 0.2))
+        aw, alen = B["arm_w"], B["arm"]
+        sleeve_len = alen * (0.78 if sl["length"] == "long" else 0.35)
+        box(f"{cid}.sleeve", (aw, aw, sleeve_len), (0, 0, 0.2 - sleeve_len / 2), sl["color"], arm, bevel=0.06)
+        if stripes:
+            for k in range(int(sleeve_len / 0.5)):
+                box(f"{cid}.stripe", (aw + 0.02, aw + 0.02, 0.2), (0, 0, 0.05 - 0.5 * k - 0.25), c["torso"].get("accent", "#FFFFFF"), arm, bevel=0.03)
+        skin_len = alen - sleeve_len
+        box(f"{cid}.skin", (aw - 0.04, aw - 0.04, skin_len), (0, 0, 0.2 - sleeve_len - skin_len / 2 + 0.02), c["skin"], arm,
             bevel=0.08)
         if c["torso"].get("detail") == "trench":
-            box(f"{cid}.coat", (0.99, 0.99, 0.9), (0, 0, -0.44), c["torso"]["color"], leg, bevel=0.05)
+            box(f"{cid}.coat", (lw + 0.01, lw + 0.01, 0.9), (0, 0, -0.44), c["torso"]["color"], leg, bevel=0.05)
 
-    neck = empty(f"{cid}.neck", body, (0, 0, 2.0))
+    neck = empty(f"{cid}.neck", body, (0, 0, B["torso_h"]))
+    neck.scale = (B["head"],) * 3
     box(f"{cid}.head", (1.28, 1.16, 1.22), (0, 0, 0.64), c["skin"], neck, bevel=0.16)
     faces = {}
     for ex in (exprs or [c["face"].get("expression", "neutral")]):

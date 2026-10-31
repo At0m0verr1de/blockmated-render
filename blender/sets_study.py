@@ -12,6 +12,8 @@ from blocky import box, hex_rgba
 from kit import place, place_tinted
 from sets import area_light, ebox, point_light, room_shell, set_world, text
 import sets_fixed
+import dress
+from dress import wall
 
 FOOD = "food-kit"
 
@@ -70,6 +72,17 @@ def park(time="day", spec=None):
     box("bench.back", (7, 0.3, 2.0), (0, 2.0, 3.4), "#8A5A30", None, bevel=0.05)
     for sx in (-3.2, 3.2):
         box("bench.leg", (0.3, 2.0, 2.2), (sx, 1.0, 1.1), "#3A3A3A", None, bevel=0.03)
+    rnd = random.Random(5)
+    for x, y in ((-6, 6), (6, 7), (-15, 9), (13, 18), (-4, 20), (8, 26), (-18, 30)):        # flower beds
+        for _ in range(5):
+            place("nature-kit", rnd.choice(["flower_redA", "flower_yellowB", "flower_purpleA", "flower_redC"]),
+                  (x + rnd.uniform(-1.5, 1.5), y + rnd.uniform(-1, 1), 0), rot=rnd.uniform(0, 360), scale=1.0)
+        place("nature-kit", "plant_bushLarge", (x + 2.5, y + 1.5, 0), scale=0.9)
+    for x in (-8, 8, -16, 16):                                                               # park lamps
+        box("lamp.pole", (0.35, 0.35, 9), (x, 4 + abs(x) * 0.6, 4.5), "#2B2B2B", None, bevel=0.05)
+        ebox("lamp.head", (1.0, 1.0, 1.2), (x, 4 + abs(x) * 0.6, 9.4), "#FFE3B0", 3.0, bevel=0.2)
+    for i in range(-10, 11):                                                                  # low fence along the path
+        place("nature-kit", "fence_simple", (i * 3.2 - 14, 46, 0), scale=1.0)
     golden()
     area_light((0, -20, 12), 30, 1200, "#FFE2C4", rot=(70, 0, 0))
 
@@ -95,6 +108,28 @@ def class_tc(time="day", spec=None):
             box("chair.seat", (2.0, 1.8, 0.2), (x, y - 2.6, 1.6), "#C88A4A", None, bevel=0.04)
             box("chair.back", (2.0, 0.2, 2.0), (x, y - 3.5, 2.6), "#C88A4A", None, bevel=0.04)
             box("paper", (1.4, 1.0, 0.03), (x + 0.6, y - 0.2, 3.44), "#FAFAFA", None, bevel=0)
+            box("bag", (1.2, 0.6, 1.4), (x + 0.6, y - 3.75, 1.9), random.Random(int(x * 7 + y)).choice(dress.ART), None, bevel=0.15)
+    back = wall("back", y=20.0)
+    dress.clock(back, 0, 11.6)
+    dress.bunting(back, -23, 23, 13.4, n=22)
+    dress.corkboard(back, -11.8, 7.6, (4.4, 3.6), seed=2)
+    dress.shelf(back, 20.6, 8.2, width=3.6, seed=3)
+    left = wall("left", x=-23.8)
+    for i, y in enumerate((12, 0, -12)):
+        dress.window(left, y, 8.0, (6.0, 5.6), sky="#CFE8FF", glow=2.5, curtains=None)
+        dress.pot(left, y - 1.6, -0.4, 5.1, s=0.9, seed=i)
+        dress.pot(left, y + 1.4, -0.4, 5.1, s=0.7, seed=i + 4)
+    right = wall("right", x=23.8)
+    for i, y in enumerate((10, -2, -14)):
+        dress.poster(right, -y, 8.0, (3.6, 4.6), seed=10 + i)
+    dress.shelf(right, 4, 4.4, width=7.0, seed=7, plant=False)
+    dress.shelf(right, 4, 6.2, width=7.0, seed=8)
+    box("tdesk", (7, 3.2, 0.3), (-11, 13.5, 3.5), "#8A5A30", None, bevel=0.05)
+    box("tdesk.base", (6.6, 2.8, 3.3), (-11, 13.5, 1.7), "#6C4A2A", None, bevel=0.05)
+    place(FOOD, "apple", (-9, 13.2, 3.65), scale=2.6)
+    for k in range(4):
+        box("book", (1.6, 1.1, 0.3), (-12.5, 13.5, 3.8 + k * 0.3), dress.BOOK_COLORS[k], None, bevel=0.04, rot=(0, 0, k * 7))
+    place("furniture-kit", "trashcan", (-21, 16, 0), scale=1.0)
     set_world("#E9ECEF", 0.9)
     area_light((0, 0, 13.5), 36, 4200, "#FFF7EC")
     area_light((-18, -16, 9), 12, 1500, "#FFFFFF", rot=(60, 0, -40))
@@ -120,13 +155,35 @@ def dining(time="night", spec=None):
     place(FOOD, "cake-birthday", (0, 2, 3.66), scale=2.8)
     place(FOOD, "fries", (-2.8, 2, 3.66), scale=2.6)
     place(FOOD, "donut-sprinkles", (2.8, 2, 3.66), scale=2.6)
+    for sx, sy in ((-3, 1.2), (3, 2.8), (0, 0.4), (0, 3.6)):
+        place(FOOD, "ice-cream-cup", (sx, sy, 3.66), scale=2.4)
+    place(FOOD, "bottle-ketchup", (-0.8, 2.6, 3.66), scale=2.6)
+    place(FOOD, "pepper-mill", (0.9, 1.4, 3.66), scale=2.6)
+    dress.rug(0, 2, (17, 12), "#8E3B2E", "#E9C99A")
+    back = wall("back", y=14.0)
+    x = -14.0
+    for _ in range(6):
+        place("furniture-kit", "kitchenCabinetUpper", (x, 13.6, 7.0), rot=180)
+        x += 4.2
+    dress.clock(back, 13.5, 8.6)
+    dress.frame(back, 13.5, 4.6, (2.6, 3.0), seed=4)
+    left = wall("left", x=-19.8)
+    dress.window(left, 3, 6.6, (7.0, 5.0), sky="#1E2A55", glow=1.2, curtains="#B6463A")
+    dress.frame(left, -7, 6.8, (2.6, 3.4), seed=1)
+    dress.frame(left, 11, 6.8, (3.0, 2.4), seed=2)
+    right = wall("right", x=19.8)
+    dress.shelf(right, -4, 6.4, width=6.0, seed=5)
+    dress.frame(right, 5, 7.0, (3.4, 2.6), seed=6)
+    dress.pot(right, 8, -1.2, 0, s=2.2, seed=3)
+    place("furniture-kit", "lampSquareFloor", (16.5, 10, 0), rot=200, scale=1.0)
     for sx, r in ((-4.5, 0), (-1.5, 0), (1.5, 0), (4.5, 0)):
         box("chair", (2.2, 2.0, 0.25), (sx, -2.6, 2.0), "#7A4A22", None, bevel=0.05)
         box("chair", (2.2, 2.0, 0.25), (sx, 6.6, 2.0), "#7A4A22", None, bevel=0.05)
     ebox("pendant", (2.4, 2.4, 1.2), (0, 2, 9.5), "#FFC98A", 8.0, bevel=0.3)
     point_light((0, 2, 8.6), 2600, "#FFB46B", radius=1.0)
-    set_world("#2A1C14", 0.5)
-    area_light((0, -14, 8), 18, 900, "#FFD2A0", rot=(70, 0, 0))
+    set_world("#3A2A20", 0.7)
+    area_light((0, -14, 8), 18, 1800, "#FFE2C0", rot=(70, 0, 0))
+    area_light((0, 2, 11.5), 14, 1200, "#FFF0DC")
 
 
 def street_car(time="night", spec=None):
@@ -142,16 +199,23 @@ def car_interior(time="night", spec=None):
     for sx in (-2.4, 2.4):
         box("seat", (3.2, 2.6, 1.0), (sx, 0, 2.0), "#2E2E36", None, bevel=0.2)
         box("seat.back", (3.2, 0.8, 4.2), (sx, 1.6, 4.0), "#2E2E36", None, bevel=0.2)
-    box("dash", (10, 2.4, 1.6), (0, -4.2, 4.6), "#E04A3A", None, bevel=0.2)
+    box("dash", (10, 2.4, 1.6), (0, -4.2, 4.6), "#2E2E36", None, bevel=0.2)
     box("wheel", (2.0, 0.3, 2.0), (-2.4, -3.0, 5.4), "#151518", None, bevel=0.6)
-    box("roof", (10, 8, 0.4), (0, -0.5, 8.6), "#E04A3A", None, bevel=0.1)
+    box("roof", (10, 8, 0.4), (0, -0.5, 8.6), "#2A2A30", None, bevel=0.1)
+    for sx in (-4.8, 4.8):
+        box("pillar", (0.5, 0.5, 3.6), (sx, -4.6, 7.0), "#2A2A30", None, bevel=0.1, rot=(-25, 0, 0))
+    box("mirror", (1.4, 0.2, 0.5), (0.6, -3.9, 7.9), "#1A1A1A", None, bevel=0.08)
+    box("vent", (1.2, 0.1, 0.4), (0, -3.0, 4.9), "#151518", None, bevel=0.05)
+    box("screen", (1.6, 0.1, 1.0), (1.4, -3.0, 5.0), "#151518", None, bevel=0.05)
+    ebox("screen.glow", (1.4, 0.05, 0.8), (1.4, -3.06, 5.0), "#6FA8FF", 1.5, bevel=0.02)
     for sx in (-5, 5):
         box("door", (0.4, 8, 3.2), (sx, -0.5, 2.6), "#E04A3A", None, bevel=0.1)
     for i in range(6):
         ebox("streetlight", (0.6, 0.6, 0.6), (-12 + i * 5, -14, 7 + (i % 2)), "#FFC98A", 8.0, bevel=0.2)
-    point_light((0, -1, 7.6), 300, "#7F95E8", radius=1.0)
+    point_light((0, -1, 7.6), 120, "#7F95E8", radius=1.0)
     area_light((0, -10, 6), 8, 500, "#FFC98A", rot=(80, 0, 0))
-    area_light((0, -9, 6.5), 10, 900, "#9DB0F0", rot=(78, 0, 0))   # dashboard glow on their faces
+    area_light((0, -9, 6.5), 10, 1800, "#9DB0F0", rot=(78, 0, 0))   # dashboard glow on their faces
+    area_light((0, -2, 8.2), 6, 250, "#FFD8B0", rot=(180, 0, 0))     # soft cabin light
 
 
 def hallway_tc(time="day", spec=None):
@@ -163,6 +227,19 @@ def hallway_tc(time="day", spec=None):
             box("locker", (1.4, 1.9, 7.4), (s * 8.2, y, 3.7), "#2F3B4A", None, bevel=0.05)
             for k in range(3):
                 box("vent", (0.05, 1.0, 0.08), (s * 7.48, y, 6.6 - k * 0.22), "#1C2430", None, bevel=0.01)
+    rnd = random.Random(9)
+    left, right = wall("left", x=-8.8), wall("right", x=8.8)
+    for i, y in enumerate(range(-16, 60, 12)):
+        dress.window(left, y, 10.6, (6.0, 3.6), sky="#FFE4BC", glow=3.0, curtains=None)
+        dress.poster(right, -y, 10.6, (3.0, 3.6), seed=i)
+        dress.corkboard(right, -y - 5, 10.6, (4.0, 3.0), seed=i)
+        dress.bunting(left, y + 3, y + 9, 13.2, n=6, seed=i)
+    for y in (-6, 14, 34):   # posters taped on locker doors
+        box("sticker", (0.04, 1.2, 1.6), (rnd.choice((-1, 1)) * 7.46, y, 5.2), rnd.choice(dress.ART), None, bevel=0.01)
+    back = wall("back", y=60.0)
+    dress.window(back, 0, 7.0, (9.0, 7.0), sky="#FFE4BC", glow=3.5, curtains=None)
+    place("furniture-kit", "trashcan", (-6.8, 8, 0), scale=1.0)
+    place("furniture-kit", "pottedPlant", (6.6, 22, 0), scale=1.2)
     for y in range(-20, 60, 10):
         ebox("light", (4, 2, 0.2), (0, y, 13.8), "#FFE7C2", 5.0)
     set_world("#E8C79C", 0.8)
@@ -189,6 +266,28 @@ def sleepover(time="night", spec=None):
     box("desk", (8, 3, 0.3), (10, 13.6, 3.8), "#F2EEE6", None, bevel=0.05)
     for lx in (8.2, 11.6):
         place("furniture-kit", "laptop", (lx, 13.6, 3.95), rot=180, scale=1.0)
+    for dx in (-3.6, -0.5, 3.6):
+        box("desk.leg", (0.25, 2.6, 3.7), (10 + dx, 13.6, 1.85), "#D9D2C6", None, bevel=0.03)
+    back = wall("back", y=15.75)
+    dress.fairy_lights(back, -17, 17, 12.2, sag=0.9, n=30)
+    dress.shelf(back, -13, 7.2, width=5.0, seed=4)
+    dress.frame(back, 1.2, 9.2, (2.4, 3.0), seed=8)
+    dress.frame(back, 13.6, 8.8, (2.4, 2.0), seed=9)
+    left = wall("left", x=-17.8)
+    dress.window(left, 4, 7.4, (6.5, 6.0), sky="#22306A", glow=1.4, curtains="#F2A9C0")
+    dress.poster(left, -8, 7.6, (3.0, 4.0), seed=5)
+    right = wall("right", x=17.8)
+    dress.poster(right, -6, 7.6, (3.4, 4.6), "#E9D3E8", seed=6)
+    dress.shelf(right, 6, 6.0, width=5.0, seed=12)
+    dress.rug(0, 1.5, (24, 24), "#F3C6D8", "#FFFFFF")
+    rnd = random.Random(4)
+    for k in range(9):   # snacks and clutter between the bags
+        a = math.radians(18 + k * 40)
+        place(FOOD, rnd.choice(["pizza-box", "soda-can", "bag", "candy-bar", "cupcake", "popsicle", "chips" if False else "donut"]),
+              (4.0 * math.cos(a), 1.5 + 4.0 * math.sin(a), 0.1), rot=rnd.uniform(0, 360), scale=2.4)
+    place("furniture-kit", "bedSingle", (-12.5, -4, 0), rot=90, scale=1.0)
+    place("furniture-kit", "lampRoundTable", (14, 13.6, 3.95), rot=180, scale=1.0)
+    place("furniture-kit", "bear", (-12.5, -1, 2.4), rot=90, scale=1.0)
     colors = ["#F7B6D2", "#C89BF2", "#9AD8FF", "#FFD27D", "#7CFFB2", "#FF8A80", "#B8E986", "#F2A9C0", "#9FA8DA", "#FFAB91"]
     for i in range(10):
         a = math.radians(i * 36)

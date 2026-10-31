@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 import bpy
+from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import anim  # noqa: E402
@@ -31,6 +32,7 @@ preview = "--preview" in args
 spec = json.loads(timing_path.read_text())
 cast = blocky.load_cast()
 blocky.FACE_STYLE = spec.get("face_style", "geo")
+blocky.BODY_STYLE = spec.get("body", "classic")   # "slim" = longer legs, smaller head
 out_dir = timing_path.parent / ("shots_preview" if preview else "shots")
 out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -116,8 +118,39 @@ def machine_fx(m, fx, n):
         anim.key_loc(can, f0 + 11, (x, 3.0, 0.6))
 
 
+FRAMES = {  # shot size -> (distance, look-point drop below the head centre); lens 35, portrait frame
+    "close": (5.5, 0.6), "medium": (8.5, 1.4), "cowboy": (10.5, 2.0), "full": (13.0, 2.8), "wide": (18.0, 3.2),
+}
+
+
+def frame_cam(f):
+    """Camera from a framing request instead of coordinates, e.g. {"on": "tc_girl", "size": "medium", "angle": 25}.
+    on: one actor id or a list (framed on their centre); size: close/medium/cowboy/full/wide;
+    angle: degrees around the (first) actor from straight in front (+ = toward their left); rise: extra camera height;
+    lens: default 35. Uses the actors as built at frame 1 (after sitting), so it follows sit/scale."""
+    bpy.context.scene.frame_set(1)
+    ids = f["on"] if isinstance(f["on"], list) else [f["on"]]
+    heads = []
+    for cid in ids:
+        neck = bpy.data.objects[f"{cid}.neck"]
+        heads.append(neck.matrix_world @ Vector((0, 0, 0.62)))
+    centre = sum(heads, Vector((0, 0, 0))) / len(heads)
+    root = bpy.data.objects[ids[0]]
+    rz = root.rotation_euler.z + math.radians(f.get("angle", 0))
+    dist, drop = FRAMES[f.get("size", "medium")]
+    dist *= f.get("dist_k", 1.0)
+    if len(ids) > 1:   # pull back so everyone fits across the narrow portrait frame
+        spread = max((h - centre).length for h in heads)
+        dist = max(dist, spread * 3.4 + 2.5)
+    k = root.scale.z
+    look = centre - Vector((0, 0, drop * k))
+    pos = look + Vector((math.sin(rz), -math.cos(rz), 0)) * dist   # actors face (sin rz, -cos rz)
+    pos.z = look.z + 0.35 * k + f.get("rise", 0.0)
+    return {"pos": list(pos), "look": list(look), "lens": f.get("lens", 35)}
+
+
 def camera(shot, n):
-    c = shot["cam"]
+    c = frame_cam(shot["frame"]) if "frame" in shot else shot["cam"]
     c = dict(spec["cams"][c]) if isinstance(c, str) else dict(c)
     cam = blocky.add_camera(tuple(c["pos"]), tuple(c["look"]), lens=c.get("lens", 35))
     target = bpy.data.objects["cam.target"]
@@ -216,6 +249,44 @@ def hud(items):
         ob.data.extrude = 0.0
 
 
+def grade(kind):
+    """Colour grade in the compositor. "warm": golden lift/gain, a touch more contrast and a soft vignette."""
+    if not kind:
+        return
+    sc = bpy.context.scene
+    try:
+        sc.view_settings.look = "Medium High Contrast"
+    except TypeError:
+        pass
+    sc.use_nodes = True
+    nt = sc.node_tree
+    for nd in list(nt.nodes):
+        nt.nodes.remove(nd)
+    rl = nt.nodes.new("CompositorNodeRLayers")
+    cb = nt.nodes.new("CompositorNodeColorBalance")
+    cb.correction_method = "LIFT_GAMMA_GAIN"
+    cb.lift = (1.01, 1.0, 0.98)
+    cb.gamma = (1.01, 1.0, 0.97)
+    cb.gain = (1.05, 1.01, 0.95)
+    mask = nt.nodes.new("CompositorNodeEllipseMask")
+    mask.width, mask.height = 0.95, 0.9
+    blur = nt.nodes.new("CompositorNodeBlur")
+    blur.filter_type = "FAST_GAUSS"
+    blur.use_relative = True
+    blur.factor_x = blur.factor_y = 40
+    ramp = nt.nodes.new("CompositorNodeMapRange")
+    ramp.inputs["To Min"].default_value = 0.72
+    mix = nt.nodes.new("CompositorNodeMixRGB")
+    mix.blend_type = "MULTIPLY"
+    comp = nt.nodes.new("CompositorNodeComposite")
+    nt.links.new(rl.outputs["Image"], cb.inputs["Image"])
+    nt.links.new(mask.outputs["Mask"], blur.inputs["Image"])
+    nt.links.new(blur.outputs["Image"], ramp.inputs["Value"])
+    nt.links.new(cb.outputs["Image"], mix.inputs[1])
+    nt.links.new(ramp.outputs["Value"], mix.inputs[2])
+    nt.links.new(mix.outputs["Image"], comp.inputs["Image"])
+
+
 PROGRESS = timing_path.parent / "progress.json"
 
 
@@ -261,6 +332,7 @@ def render_shot(i, shot):
     machine_fx(m, shot.get("machine"), n)
     camera(shot, n)
     hud(shot.get("hud", []))
+    grade(spec.get("grade"))
     anim.smooth_all()
     sc.render.image_settings.file_format = "FFMPEG"
     sc.render.ffmpeg.format = "MPEG4"
