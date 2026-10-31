@@ -298,6 +298,309 @@
       },
       "pants": "#97B2E3",
       "shoes": "#F4F8FF"
+    },
+    {
+      "id": "nell",
+      "name": "Nell",
+      "role": "Fixed: narrator, 12. Frowns too much for this town.",
+      "scale": 0.97,
+      "skin": "#E3B48C",
+      "hair": {
+        "style": "ponytail",
+        "color": "#7A3B22"
+      },
+      "torso": {
+        "color": "#E8B530",
+        "detail": "jacket",
+        "accent": "#B9861A",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#E8B530",
+        "length": "long"
+      },
+      "pants": "#2F5D62",
+      "shoes": "#F4F4F4",
+      "face": {
+        "expression": "neutral"
+      },
+      "accessories": []
+    },
+    {
+      "id": "teo",
+      "name": "Teo",
+      "role": "Fixed: Nell's best friend, moves away.",
+      "scale": 0.97,
+      "skin": "#8D5A3C",
+      "hair": {
+        "style": "messy",
+        "color": "#1E1612"
+      },
+      "torso": {
+        "color": "#3E7CC9",
+        "detail": "tee_stripe",
+        "accent": "#F2F2F2",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#3E7CC9",
+        "length": "long"
+      },
+      "pants": "#2E3440",
+      "shoes": "#E2526B",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "fx_mom",
+      "name": "Mom (Fixed)",
+      "role": "Fixed: Nell's mom. 'Fixed' since Nell was five. Always smiling.",
+      "scale": 1.1,
+      "skin": "#E8C09A",
+      "hair": {
+        "style": "bob",
+        "color": "#5B3A29"
+      },
+      "torso": {
+        "color": "#B79AD9",
+        "detail": "cardigan",
+        "accent": "#F3EEF9",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#B79AD9",
+        "length": "long"
+      },
+      "pants": "#3B3550",
+      "shoes": "#2B2B2B",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "daly",
+      "name": "Mr. Daly",
+      "role": "Fixed: the neighbour, fixed since 2017. Waves at mailboxes.",
+      "scale": 1.12,
+      "skin": "#F0C8A0",
+      "hair": {
+        "style": "buzz",
+        "color": "#E8E8E8"
+      },
+      "torso": {
+        "color": "#C98B3B",
+        "detail": "sweater",
+        "accent": "#8A5A20",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#C98B3B",
+        "length": "long"
+      },
+      "pants": "#4A4A55",
+      "shoes": "#3A2A1A",
+      "face": {
+        "expression": "happy",
+        "mustache": "#E8E8E8"
+      },
+      "accessories": []
+    },
+    {
+      "id": "nurse",
+      "name": "The Nurse",
+      "role": "Fixed: Clinic nurse with a perfect smile.",
+      "scale": 1.1,
+      "skin": "#F2CDA8",
+      "hair": {
+        "style": "bun",
+        "color": "#E9C46A"
+      },
+      "torso": {
+        "color": "#F7F9FA",
+        "detail": "cardigan",
+        "accent": "#2BA6A0",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F7F9FA",
+        "length": "long"
+      },
+      "pants": "#F7F9FA",
+      "shoes": "#F7F9FA",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "orderly1",
+      "name": "Orderly",
+      "role": "Fixed: one of the two men from the white van.",
+      "scale": 1.18,
+      "skin": "#C68B5E",
+      "hair": {
+        "style": "buzz",
+        "color": "#2A1C14"
+      },
+      "torso": {
+        "color": "#F2F4F6",
+        "detail": "jacket",
+        "accent": "#C9D3DA",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F2F4F6",
+        "length": "long"
+      },
+      "pants": "#F2F4F6",
+      "shoes": "#DDE3E6",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "orderly2",
+      "name": "Orderly",
+      "role": "Fixed: the other man from the white van.",
+      "scale": 1.18,
+      "skin": "#F0C8A0",
+      "hair": {
+        "style": "buzz",
+        "color": "#A07040"
+      },
+      "torso": {
+        "color": "#F2F4F6",
+        "detail": "jacket",
+        "accent": "#C9D3DA",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#F2F4F6",
+        "length": "long"
+      },
+      "pants": "#F2F4F6",
+      "shoes": "#DDE3E6",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "fx_kid1",
+      "name": "Classmate (June)",
+      "role": "Fixed: classmate.",
+      "scale": 0.95,
+      "skin": "#6B4430",
+      "hair": {
+        "style": "bob",
+        "color": "#120C0A"
+      },
+      "torso": {
+        "color": "#E2526B",
+        "detail": "sweater",
+        "accent": "#B83A50",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#E2526B",
+        "length": "long"
+      },
+      "pants": "#3A3A48",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "fx_kid2",
+      "name": "Classmate (Ravi)",
+      "role": "Fixed: classmate.",
+      "scale": 0.95,
+      "skin": "#B9865F",
+      "hair": {
+        "style": "messy",
+        "color": "#2A1C14"
+      },
+      "torso": {
+        "color": "#7CC444",
+        "detail": "hoodie",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#7CC444",
+        "length": "long"
+      },
+      "pants": "#33415C",
+      "shoes": "#222222",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "fx_kid3",
+      "name": "Classmate (Bea)",
+      "role": "Fixed: classmate.",
+      "scale": 0.95,
+      "skin": "#F0C8A0",
+      "hair": {
+        "style": "ponytail",
+        "color": "#D8A040"
+      },
+      "torso": {
+        "color": "#3FA7D6",
+        "detail": "tee_stripe",
+        "accent": "#FFFFFF",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#3FA7D6",
+        "length": "long"
+      },
+      "pants": "#5A4A6A",
+      "shoes": "#FFFFFF",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": []
+    },
+    {
+      "id": "fx_teacher",
+      "name": "Mr. Penn",
+      "role": "Fixed: the teacher. Smiles at the whiteboard.",
+      "scale": 1.12,
+      "skin": "#D9A27A",
+      "hair": {
+        "style": "buzz",
+        "color": "#3A2A1E"
+      },
+      "torso": {
+        "color": "#5E7FA8",
+        "detail": "cardigan",
+        "accent": "#F2EEE6",
+        "width": 2.0
+      },
+      "sleeves": {
+        "color": "#5E7FA8",
+        "length": "long"
+      },
+      "pants": "#3A3A44",
+      "shoes": "#2A2A2A",
+      "face": {
+        "expression": "smile"
+      },
+      "accessories": [
+        {
+          "type": "glasses",
+          "color": "#2A2A2A"
+        }
+      ]
     }
   ],
   "extras": [

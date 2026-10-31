@@ -16,6 +16,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import anim  # noqa: E402
 import blocky  # noqa: E402
 import sets  # noqa: E402
+import kit  # noqa: E402
+import sets_fixed  # noqa: E402
 
 args = sys.argv[sys.argv.index("--") + 1:]
 timing_path = Path(args[0])
@@ -180,7 +182,7 @@ def actor(a, n, idx):
     root = blocky.build(c, loc=(at[0], at[1], 0), rot_z=face, exprs=list(dict.fromkeys(ex for _, ex in timeline)))
     cid = c["id"]
     anim.face_timeline(cid, n, timeline)
-    anim.blink(cid, n, seed=idx + len(cid))
+    anim.blink(cid, n, seed=idx + len(cid), every=a.get("blink_every"), at=a.get("blink_at"))
     if "sit" in a:
         anim.sit(cid, n, a["sit"])
     if a.get("holding"):
@@ -195,6 +197,21 @@ def actor(a, n, idx):
         else:
             fn(cid, n, **params)
     return root
+
+
+def hud(items):
+    """On-screen text fixed to the camera, e.g. {"text": "STRIKE 1/3", "pos": [0, 0.3], "size": 0.06, "color": "#FF2B3A"}.
+    pos is in frame units: x and y from -0.5 (left/bottom) to 0.5 (right/top)."""
+    cam = bpy.context.scene.camera
+    if not cam or not items:
+        return
+    d = 0.6  # close to the lens so nothing in the scene can cover it
+    vh = 36.0 / cam.data.lens * d          # portrait frame: the 36 mm sensor spans the height
+    vw = vh * 9 / 16
+    for it in items:
+        ob = sets.text(it["text"], (it.get("pos", [0, 0])[0] * vw, it.get("pos", [0, 0])[1] * vh, -d),
+                       it.get("size", 0.06) * vh, it.get("color", "#FFFFFF"), parent=cam, rot=(0, 0, 0), emit=4.0)
+        ob.data.extrude = 0.0
 
 
 PROGRESS = timing_path.parent / "progress.json"
@@ -225,10 +242,19 @@ def render_shot(i, shot):
         sets.classroom(shot.get("time", "day"), spec.get("board"))
     elif shot["set"] == "bedroom":
         sets.bedroom(shot.get("time", "night"))
+    elif shot["set"] in sets_fixed.SETS:
+        sets_fixed.SETS[shot["set"]](shot.get("time", "day"), spec)
+    # per-shot props: {"van": {...}} or {"kit": "...", "name": "...", "at": [x, y, z], "rot": deg, "scale": s}
+    for o in shot.get("objects", []):
+        if "van" in o:
+            sets_fixed.van(**o["van"])
+        else:
+            kit.place(o["kit"], o["name"], tuple(o.get("at", (0, 0, 0))), o.get("rot", 0), o.get("scale", 1))
     for k, a in enumerate(shot.get("actors", [])):
         actor(a, n, k)
     machine_fx(m, shot.get("machine"), n)
     camera(shot, n)
+    hud(shot.get("hud", []))
     anim.smooth_all()
     sc.render.image_settings.file_format = "FFMPEG"
     sc.render.ffmpeg.format = "MPEG4"

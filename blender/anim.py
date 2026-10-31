@@ -281,11 +281,20 @@ def face_timeline(cid, n, timeline):
             _show(grp, f, ex == active)
 
 
-def blink(cid, n, seed=0):
-    """Blink every 2.5-4 s. Squashes each face's eye group."""
+def blink(cid, n, seed=0, every=None, at=None):
+    """Blink every 2.5-4 s by default. Squashes each face's eye group.
+    every: exact period in seconds (0 = never blink); at: blink at these fractions of the shot."""
     root = obj(cid)
     rng = (seed * 37 + 11) % 29
-    frames = list(range(18 + rng, n - 4, 60 + (seed * 13) % 36))
+    if at is not None:
+        frames = [max(1, min(n - 5, round(f * n))) for f in at]
+    elif every == 0:
+        frames = []
+    elif every:
+        period = round(every * FPS)
+        frames = list(range(1 + (seed * 37) % period, n - 4, period))
+    else:
+        frames = list(range(18 + rng, n - 4, 60 + (seed * 13) % 36))
     for ex in root["faces"]:
         eyes = bpy.data.objects.get(f"{cid}.face.{ex}.eyes")
         if not eyes:
