@@ -1279,14 +1279,14 @@
    "set": "hallway",
    "cam": {
     "pos": [
-     2.0,
-     -9.0,
+     2.4,
+     -10.5,
      6.6
     ],
     "look": [
      0,
      -4,
-     6.4
+     6.2
     ],
     "lens": 45
    },
@@ -1381,7 +1381,8 @@
      "end": 27.13768115942029
     }
    ],
-   "end": 27.376811594202895
+   "end": 27.376811594202895,
+   "no_punch": true
   },
   {
    "text": "On Monday, Ms. Graves asked if I'd done my homework.",
